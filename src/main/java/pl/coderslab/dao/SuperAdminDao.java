@@ -11,7 +11,7 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class SuperAdminDao extends AdminDao{
+public class SuperAdminDao extends AdminDao {
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?, " +
             "superadmin=?, enable=?;";
@@ -32,7 +32,7 @@ public class SuperAdminDao extends AdminDao{
                 admin.setPassword(resultSet.getString("password"));
 //                admin.setSuperadmin(resultSet.getByte("superadmin"));
 //                admin.setEnable(resultSet.getByte("enable"));
-                superAdmin.setSuperAdmin(admin,resultSet.getByte("superadmin"));
+                superAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
                 superAdmin.setEnable(admin, resultSet.getByte("enable"));
                 admins.add(admin);
             }
@@ -43,6 +43,7 @@ public class SuperAdminDao extends AdminDao{
         }
         return null;
     }
+
     @Override
     public void update(Admin admin, int id) {
         try (Connection connection = DbUtil.getConnection()) {

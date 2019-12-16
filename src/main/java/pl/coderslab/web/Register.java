@@ -23,6 +23,7 @@ public class Register extends HttpServlet {
         String lastName = request.getParameter("lastName");
         String email = request.getParameter("email");
         String password = BCrypt.hashpw(request.getParameter("password"), BCrypt.gensalt());
+        AdminDao adminDao = new AdminDao();
 
         request.setAttribute("firstName", firstName);
         request.setAttribute("lastName", lastName);
@@ -30,6 +31,11 @@ public class Register extends HttpServlet {
         Matcher matcher = compiledPattern.matcher(email);
         while (!matcher.matches()) {
             request.setAttribute("errorEmail", "Podaj właściwy adres email");
+            getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
+        }
+        while (adminDao.doesExist(email)){
+            request.setAttribute("errorEmail", "Użytkownik o tym adresie e-mail już jest zarejestrowany.<a " +
+                    "href=\"/login\"> Zaloguj&nbspsię</a>");
             getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
         }
         request.setAttribute("email", email);
@@ -52,7 +58,6 @@ public class Register extends HttpServlet {
             admin.setLastName(lastName);
             admin.setEmail(email);
             admin.setPassword(password);
-            AdminDao adminDao = new AdminDao();
             adminDao.create(admin);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
