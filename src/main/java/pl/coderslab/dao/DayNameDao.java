@@ -1,7 +1,6 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-import pl.coderslab.model.DBUtil;
 import pl.coderslab.model.DayName;
 import pl.coderslab.utils.DbUtil;
 
