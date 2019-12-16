@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.model.Admin;
+import pl.coderslab.model.SuperAdmin;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.Connection;
@@ -23,13 +24,16 @@ public class SuperAdminDao extends AdminDao{
             List<Admin> admins = new LinkedList<>();
             while (resultSet.next()) {
                 Admin admin = new Admin();
+                SuperAdmin superAdmin = new SuperAdmin();
                 admin.setId(resultSet.getInt(1));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                admin.setSuperadmin(resultSet.getByte("superadmin"));
-                admin.setEnable(resultSet.getByte("enable"));
+//                admin.setSuperadmin(resultSet.getByte("superadmin"));
+//                admin.setEnable(resultSet.getByte("enable"));
+                superAdmin.setSuperAdmin(admin,resultSet.getByte("superadmin"));
+                superAdmin.setEnable(admin, resultSet.getByte("enable"));
                 admins.add(admin);
             }
             return admins;
