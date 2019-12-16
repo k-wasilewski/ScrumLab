@@ -19,6 +19,7 @@ public class RecipeDao {
     private static final String READ_RECIPE_QUERY = "SELECT * from recipe where id = ?;";
     private static final String UPDATE_RECIPE_QUERY = "UPDATE	recipe SET updated = ?, name = ? , ingredients = ?, description = ?," +
             " preparation_time = ?, preparation = ? WHERE id = ?;";
+    private static final String COUNT_RECIPES_QUERY = "SELECT COUNT(*) AS count FROM recipe WHERE admin_id=?;";
 
     /**
      * Get recipe by id
@@ -158,5 +159,28 @@ public class RecipeDao {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Get recipe count by adminId
+     *
+     * @param adminId
+     * @return
+     */
+    public int count(Integer adminId) {
+        int count=0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    count=resultSet.getInt("count");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
     }
 }
