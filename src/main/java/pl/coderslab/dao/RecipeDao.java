@@ -36,6 +36,7 @@ public class RecipeDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     recipe.setId(resultSet.getInt("id"));
+                    recipe.setName(resultSet.getString("name"));
                     recipe.setIngredients(resultSet.getString("ingredients"));
                     recipe.setDescription(resultSet.getString("description"));
                     recipe.setPreparation_time(resultSet.getInt("preparation_time"));
