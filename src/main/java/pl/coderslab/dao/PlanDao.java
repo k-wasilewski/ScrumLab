@@ -16,7 +16,7 @@ public class PlanDao {
     private static final String FIND_ALL_PLAN_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
-    private static final String READ_LATEST_PLAN ="SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1";
+    private static final String READ_LATEST_PLAN = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1";
 
     /**
      * Get plan by id
@@ -151,7 +151,6 @@ public class PlanDao {
         }
 
     }
-
 
 
     /**
