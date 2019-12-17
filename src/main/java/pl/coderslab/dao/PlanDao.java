@@ -1,11 +1,14 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +38,7 @@ public class PlanDao {
                     plan.setName(resultSet.getString("name"));
                     plan.setDescription(resultSet.getString("description"));
                     plan.setCreated(resultSet.getDate("created"));
-                    plan.setAdmin_id(resultSet.getString("admin_id"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
                 }
             }
         } catch (Exception e) {
@@ -62,7 +65,7 @@ public class PlanDao {
                 planToAdd.setName(resultSet.getString("name"));
                 planToAdd.setDescription(resultSet.getString("description"));
                 planToAdd.setCreated(resultSet.getDate("created"));
-                planToAdd.setAdmin_id(resultSet.getString("admin_id"));
+                planToAdd.setAdmin_id(resultSet.getInt("admin_id"));
                 planList.add(planToAdd);
             }
 
