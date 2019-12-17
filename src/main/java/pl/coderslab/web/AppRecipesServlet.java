@@ -20,7 +20,7 @@ public class AppRecipesServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         RecipeDao rdao = new RecipeDao();
-        List<Recipe> recipeList = rdao.findAll();
+        List<Recipe> recipeList = rdao.findAllDesc();
         HttpSession sess = request.getSession();
         sess.setMaxInactiveInterval(3600);
         sess.setAttribute("recipeList", recipeList);
