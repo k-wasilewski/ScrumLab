@@ -27,3 +27,4 @@ public class AppRecipesServlet extends HttpServlet {
         getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
     }
 }
+
