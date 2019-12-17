@@ -22,7 +22,8 @@ public class Login extends HttpServlet {
             if (BCrypt.checkpw(request.getParameter("password"), admin.getPassword())) {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin);
-                getServletContext().getRequestDispatcher("/index").forward(request, response);
+                //getServletContext().getRequestDispatcher("/index").forward(request, response);
+                response.sendRedirect("/index");
             } else {
                 request.setAttribute("loginError", "Niewłaściwe dane logowania.");
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
