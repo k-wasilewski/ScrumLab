@@ -16,6 +16,7 @@ public class PlanDao {
     private static final String FIND_ALL_PLAN_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
+    private static final String READ_LATEST_PLAN ="SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1";
 
     /**
      * Get plan by id
@@ -35,7 +36,7 @@ public class PlanDao {
                     plan.setName(resultSet.getString("name"));
                     plan.setDescription(resultSet.getString("description"));
                     plan.setCreated(resultSet.getDate("created"));
-                    plan.setAdmin_id(resultSet.getString("admin_id"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
                 }
             }
         } catch (Exception e) {
@@ -62,7 +63,7 @@ public class PlanDao {
                 planToAdd.setName(resultSet.getString("name"));
                 planToAdd.setDescription(resultSet.getString("description"));
                 planToAdd.setCreated(resultSet.getDate("created"));
-                planToAdd.setAdmin_id(resultSet.getString("admin_id"));
+                planToAdd.setAdmin_id(resultSet.getInt("admin_id"));
                 planList.add(planToAdd);
             }
 
@@ -142,13 +143,41 @@ public class PlanDao {
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
             statement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-//            statement.setDate(3, (Date) plan.getCreated());
             statement.setInt(4, plan.getAdmin_id());
 
             statement.executeUpdate();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+    }
+
+
+
+    /**
+     * Read Latest Plan
+     *
+     * @param admin_id
+     */
+    public Plan readLatestPlan(int admin_id) {
+        Plan plan = new Plan();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_LATEST_PLAN)
+        ) {
+            statement.setInt(1, admin_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    plan.setId(resultSet.getInt("id"));
+                    plan.setName(resultSet.getString("name"));
+                    plan.setDescription(resultSet.getString("description"));
+                    plan.setCreated(resultSet.getDate("created"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plan;
 
     }
 
