@@ -3,15 +3,15 @@ package pl.coderslab.model;
 import java.util.Date;
 
 public class Recipe {
-    private int id=0;
-    private Date created=new Date(0);
-    private Date updated=new Date(0);
-    private String name="";
-    private String ingredients="";
-    private String description="";
-    private int preparation_time=0;
-    private String preparation="";
-    private int admin_id=0;
+    private int id;
+    private Date created;
+    private Date updated;
+    private String name;
+    private String ingredients;
+    private String description;
+    private int preparation_time;
+    private String preparation;
+    private int admin_id;
 
     public Recipe() {
     }
@@ -88,8 +88,8 @@ public class Recipe {
         this.updated = updated;
     }
 
-    @Override//comment toString and delete initializing vars
+    /*@Override//comment toString and delete initializing vars
     public String toString() {return "Recipe id="+id+", created: "+created.getTime()+", updated: "+updated.getTime()+
     ", name: "+name+", ingredients: "+ingredients+", description: "+description+", preparation time: "+preparation_time+"," +
-            "admin id: "+admin_id;}
+            "admin id: "+admin_id;}*/
 }
