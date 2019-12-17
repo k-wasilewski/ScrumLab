@@ -20,6 +20,7 @@ public class RecipeDao {
     private static final String UPDATE_RECIPE_QUERY = "UPDATE	recipe SET updated = ?, name = ? , ingredients = ?, description = ?," +
             " preparation_time = ?, preparation = ? WHERE id = ?;";
     private static final String COUNT_RECIPES_QUERY = "SELECT COUNT(*) AS count FROM recipe WHERE admin_id=?;";
+    private static final String FIND_ALL_RECIPES_DESC_QUERY = "SELECT * FROM recipe ORDER BY created DESC;";
 
     /**
      * Get recipe by id
@@ -36,6 +37,7 @@ public class RecipeDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     recipe.setId(resultSet.getInt("id"));
+                    recipe.setName(resultSet.getString("name"));
                     recipe.setIngredients(resultSet.getString("ingredients"));
                     recipe.setDescription(resultSet.getString("description"));
                     recipe.setPreparation_time(resultSet.getInt("preparation_time"));
@@ -58,6 +60,34 @@ public class RecipeDao {
         List<Recipe> recipeList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_QUERY);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Recipe recipeToAdd = new Recipe();
+                recipeToAdd.setId(resultSet.getInt("id"));
+                recipeToAdd.setIngredients(resultSet.getString("ingredients"));
+                recipeToAdd.setDescription(resultSet.getString("description"));
+                recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
+                recipeToAdd.setPreparation(resultSet.getString("preparation"));
+                recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
+                recipeList.add(recipeToAdd);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+    }
+
+    /**
+     * Return all recipes in descending order
+     *
+     * @return
+     */
+    public List<Recipe> findAllDesc() {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_DESC_QUERY);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {

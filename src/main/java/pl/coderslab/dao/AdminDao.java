@@ -108,5 +108,33 @@ public class AdminDao {
             System.out.println("Nie znaleziono bazy");
         }
     }
+    public Admin get(String email) {
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(CHECK_IF_ADMIN_QUERY);
+            preparedStatement.setString(1, email);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            Admin admin = new Admin();
+            if (resultSet.next()) {
+                SuperAdmin superAdmin = new SuperAdmin();
+                admin.setId(resultSet.getInt(1));
+                admin.setFirstName(resultSet.getString("first_name"));
+                admin.setLastName(resultSet.getString("last_name"));
+                admin.setEmail(resultSet.getString("email"));
+                admin.setPassword(resultSet.getString("password"));
+                superAdmin.setEnable(admin, resultSet.getByte("enable"));
+                if (resultSet.getByte("superadmin") == 1) {
+                    return superAdmin.setSuperAdmin(admin, (byte) 1);
+                }
+                if (resultSet.getByte("superadmin") == 0) {
+                    superAdmin.setSuperAdmin(admin, (byte) 0);
+                    return admin;
 
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Nie znaleziono bazy");
+        }
+        return null;
+    }
 }
