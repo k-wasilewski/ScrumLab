@@ -8,22 +8,19 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/app/recipe/list/")
-public class AppRecipesServlet extends HttpServlet {
+@WebServlet("/app/recipe/details")
+public class AppRecipeDetailsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        int recipeId=Integer.parseInt(request.getParameter("id"));
         RecipeDao rdao = new RecipeDao();
-        List<Recipe> recipeList = rdao.findAllDesc();
-        HttpSession sess = request.getSession();
-        sess.setMaxInactiveInterval(3600);
-        sess.setAttribute("recipeList", recipeList);
-        getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
+        Recipe recipe = rdao.read(recipeId);
+        request.setAttribute("recipe", recipe);
+        getServletContext().getRequestDispatcher("/app-recipe-details.jsp").forward(request, response);
     }
 }
