@@ -23,7 +23,7 @@ public class AdminDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
 
-                if (resultSet.getString("email").equals(email)) {
+                if (email.equals(resultSet.getString("email"))) {
                     return true;
                 }
             }
