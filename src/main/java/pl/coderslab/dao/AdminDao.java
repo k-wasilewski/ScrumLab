@@ -13,10 +13,11 @@ public class AdminDao {
     private static final String CREATE_ADMIN_QUERY = "INSERT INTO admins (first_name, last_name, email, password, " +
             "superadmin, enable) VALUES (?,?,?,?,0,1);";
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins where id=?;";
-    private static final String GET_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE id =?;";
+    private static final String GET_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, " +
+            "enable FROM admins WHERE  id=?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?;";
     private static final String GET_ALL_EMAILS = "SELECT email FROM admins;";
-
+private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE  email=?;";
     public boolean doesExist(String email) {
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_EMAILS);
