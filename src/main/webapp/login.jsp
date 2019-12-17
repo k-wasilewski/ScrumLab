@@ -22,7 +22,7 @@
 </head>
 <body>
 <header>
-    sum header
+    <%@ include file="header.jsp" %>
 </header>
 <section class="dashboard-section">
     <div class="container pt-4 pb-4">
