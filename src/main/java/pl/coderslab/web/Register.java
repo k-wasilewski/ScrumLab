@@ -33,7 +33,7 @@ public class Register extends HttpServlet {
             request.setAttribute("errorEmail", "Podaj właściwy adres email");
             getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
         }
-        while (adminDao.doesExist(email)){
+        while (adminDao.doesExist(email)) {
             request.setAttribute("errorEmail", "Użytkownik o tym adresie e-mail już jest zarejestrowany.<a " +
                     "href=\"/login\"> Zaloguj&nbspsię</a>");
             getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
@@ -51,14 +51,15 @@ public class Register extends HttpServlet {
             request.setAttribute("errorPwd", "Podane hasła muszą się zgadzać");
             getServletContext().getRequestDispatcher("/register.jsp").forward(request, response);
 
-        }  {
+        }
+        {
 
             Admin admin = new Admin();
             admin.setFirstName(firstName);
             admin.setLastName(lastName);
             admin.setEmail(email);
             admin.setPassword(password);
-            adminDao.create(admin);
+            admin = adminDao.create(admin);
             getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
         }
 
