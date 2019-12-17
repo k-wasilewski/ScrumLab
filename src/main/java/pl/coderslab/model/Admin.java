@@ -1,5 +1,10 @@
 package pl.coderslab.model;
 
+import org.mindrot.jbcrypt.BCrypt;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class Admin {
     private int id;
     private String firstName;
@@ -8,6 +13,8 @@ public class Admin {
     private String password;
     byte enable = 1;
     byte superadmin = 0;
+    private static final String EMAIL_REGEX = "^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\\.[a-zA-Z0-9-.]{2,3}$";
+    private static final String PASSWD_REGEX = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[a-zA-Z\\d]{8,}$";
 
     public Admin() {
 
@@ -46,8 +53,15 @@ public class Admin {
         return email;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public boolean setEmail(String email) {
+        Pattern compiledPattern = Pattern.compile(EMAIL_REGEX);
+        Matcher matcher = compiledPattern.matcher(email);
+        if (matcher.matches()) {
+            this.email = email;
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public String getPassword() {
@@ -58,8 +72,23 @@ public class Admin {
         this.password = password;
     }
 
+    public boolean setNewPassword(String password) {
+        Pattern compiledPattern = Pattern.compile(PASSWD_REGEX);
+        Matcher matcher = compiledPattern.matcher(password);
+        if (matcher.matches()) {
+            this.password = BCrypt.hashpw(password, BCrypt.gensalt());
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public byte getEnable() {
         return enable;
+    }
+
+    public boolean comparePassword(String password) {
+        return BCrypt.checkpw(password, this.password);
     }
 
 }

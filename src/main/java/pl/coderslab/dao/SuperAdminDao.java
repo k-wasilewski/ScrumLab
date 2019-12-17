@@ -30,8 +30,6 @@ public class SuperAdminDao extends AdminDao {
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-//                admin.setSuperadmin(resultSet.getByte("superadmin"));
-//                admin.setEnable(resultSet.getByte("enable"));
                 superAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
                 superAdmin.setEnable(admin, resultSet.getByte("enable"));
                 admins.add(admin);
