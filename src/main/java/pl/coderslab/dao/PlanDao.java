@@ -1,13 +1,19 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
-
 import pl.coderslab.model.Plan;
 import pl.coderslab.utils.DbUtil;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 public class PlanDao {
     // ZAPYTANIA SQL
@@ -16,6 +22,7 @@ public class PlanDao {
     private static final String FIND_ALL_PLAN_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
+
 
     /**
      * Get plan by id
