@@ -181,7 +181,7 @@ public class PlanDao {
         }
 
     }
-
+  
     /**
      * Get plan count by adminId
      *
@@ -197,12 +197,50 @@ public class PlanDao {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     count=resultSet.getInt("count");
-                }
+                  }
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
         return count;
+}
+
+    /**
+     * Read Latest Plan
+     *
+     * @param admin_id
+     */
+    public Plan readLatestPlan(int admin_id) {
+        Plan plan = new Plan();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_LATEST_PLAN)
+        ) {
+            statement.setInt(1, admin_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    plan.setId(resultSet.getInt("id"));
+                    plan.setName(resultSet.getString("name"));
+                    plan.setDescription(resultSet.getString("description"));
+                    plan.setCreated(resultSet.getDate("created"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plan;
+
+    }
+
+    public int getPlanIdByName(String planName) {
+        List<Plan> plans = findAll();
+        int planId = 0;
+        for (Plan plan : plans) {
+            if (planName.equals(plan.getName())) {
+                planId = plan.getId();
+            }
+        }
+        return planId;
     }
 
     /**
