@@ -3,6 +3,7 @@ package pl.coderslab.dao;
 import pl.coderslab.exception.NotFoundException;
 
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.*;
@@ -17,6 +18,35 @@ public class PlanDao {
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
     private static final String READ_LATEST_PLAN = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1";
+    private static final String COUNT_PLANS_QUERY = "SELECT COUNT(*) AS count FROM plan WHERE admin_id=?;";
+    private static final String READ_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1;";
+
+    /**
+     * Get last recipe by adminId
+     *
+     * @param adminId
+     * @return
+     */
+    public Plan readLast(Integer adminId) {
+        Plan plan = new Plan();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_LAST_PLAN_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    plan.setId(resultSet.getInt("id"));
+                    plan.setName(resultSet.getString("name"));
+                    plan.setDescription(resultSet.getString("description"));
+                    plan.setCreated(resultSet.getDate("created"));
+                    plan.setAdmin_id(resultSet.getString("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plan;
+    }
 
     /**
      * Get plan by id
@@ -151,7 +181,29 @@ public class PlanDao {
         }
 
     }
-
+  
+    /**
+     * Get plan count by adminId
+     *
+     * @param adminId
+     * @return
+     */
+    public int count(Integer adminId) {
+        int count=0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_PLANS_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    count=resultSet.getInt("count");
+                  }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+}
 
     /**
      * Read Latest Plan
