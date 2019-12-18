@@ -19,8 +19,8 @@ public class PlanAdd extends HttpServlet {
         HttpSession session = request.getSession();
         session.setMaxInactiveInterval(60 * 60);
         Admin admin = (Admin) session.getAttribute("admin");
-        String name = request.getParameter("name");
-        String description = request.getParameter("description");
+        String name = request.getParameter("planName");
+        String description = request.getParameter("planDescription");
 
         Plan plan = new Plan();
         plan.setName(name);
