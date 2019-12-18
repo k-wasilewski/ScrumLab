@@ -1,5 +1,8 @@
 <%@ page import="pl.coderslab.model.Recipe" %>
+<%@ page import="pl.coderslab.model.DayName" %>
 <%@ page import="java.util.List" %>
+<%@ page import="pl.coderslab.model.Plan" %>
+<%@ page import="pl.coderslab.dao.RecipeDao" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
@@ -13,7 +16,7 @@
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
           rel="stylesheet">
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="./css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
@@ -71,44 +74,77 @@
             </li>
         </ul>
 
-
-        <div class="m-4 p-3 width-medium">
-            <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <div class="row border-bottom border-3 p-1 m-1">
-                    <div class="col noPadding"><h3 class="color-header text-uppercase">Lista Przepisów</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app-add-recipe.html" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj przepis</a></div>
+        <div class="m-4 p-4 width-medium">
+            <div class="dashboard-header m-4">
+                <div class="dashboard-menu">
+                    <div class="menu-item border-dashed">
+                        <a href="/app/recipe/add"">
+                            <i class="far fa-plus-square icon-plus-square"></i>
+                            <span class="title">dodaj przepis</span>
+                        </a>
+                    </div>
+                    <div class="menu-item border-dashed">
+                        <a href="/app/plan/add">
+                            <i class="far fa-plus-square icon-plus-square"></i>
+                            <span class="title">dodaj plan</span>
+                        </a>
+                    </div>
+                    <div class="menu-item border-dashed">
+                        <a href="/app/recipe/plan/add">
+                            <i class="far fa-plus-square icon-plus-square"></i>
+                            <span class="title">dodaj przepis do planu</span>
+                        </a>
+                    </div>
                 </div>
-                <table class="table border-bottom schedules-content">
-                    <thead>
-                    <c:if test="${not empty param.msg}" >Usunięto przepis</c:if>
-                    <c:if test="${not empty param.failed}" >Nie można usunąć przepisu</c:if>
-                    <tr class="d-flex text-color-darker">
-                        <th scope="col" class="col-1">ID</th>
-                        <th scope="col" class="col-2">NAZWA</th>
-                        <th scope="col" class="col-7">OPIS</th>
-                        <th scope="col" class="col-2 center">AKCJE</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${sessionScope.recipeList}" var="recipe">
+
+                <div class="dashboard-alerts">
+                    <div class="alert-item alert-info">
+                        <i class="fas icon-circle fa-info-circle"></i>
+                        <span class="font-weight-bold">Liczba przepisów: ${recipeCount}</span>
+                    </div>
+                    <div class="alert-item alert-light">
+                        <i class="far icon-calendar fa-calendar-alt"></i>
+                        <span class="font-weight-bold">Liczba planów: ${planCount}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="m-4 p-4 border-dashed">
+                <h2 class="dashboard-content-title">
+                    <% Plan lastPlan = (Plan) request.getAttribute("lastPlan"); %>
+                    <span>Ostatnio dodany plan:</span> ${lastPlan.name}
+                </h2>
+
+                <% List<DayName> dayNames = (List<DayName>) request.getAttribute("dayNames"); %>
+                <% List<List<Recipe>> listOfListsOfRecipes = (List<List<Recipe>>) request.getAttribute("listOfRecipesByDay"); %>
+                <% int i=1; %>
+                <c:forEach items="${dayNames}" var="day">
+                    <% DayName dn=(DayName)session.getAttribute("day");
+                        session.setAttribute("day", dn);
+                        session.setAttribute("i", i);%>
+                    <table class="table">
+                        <thead>
                         <tr class="d-flex">
-                            <th scope="row" class="col-1">${recipe.id}</th>
-                            <td class="col-2">
-                                    ${recipe.name}
-                            </td>
-                            <td class="col-7">${recipe.description}</td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="#" onclick='javascript:window.open("/delrecipe?id=${recipe.id}", "winname",
-                                        "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
-                                        "resizable=no,width=360,height=130");'
-                                   class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app/recipe/details?id=${recipe.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <a href="/app-edit-recipe.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
-                            </td>
+                            <th class="col-2">${day.name}</th>
+                            <th class="col-8"></th>
+                            <th class="col-2"></th>
                         </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+
+                        <% List<Recipe> listOfRecipes = listOfListsOfRecipes.get(i-1);
+                            session.setAttribute("listOfRecipes", listOfRecipes); %>
+                        <c:forEach items="${listOfRecipes}" var="recipe">
+                            <tr class="d-flex">
+                                <td class="col-2">${recipe.name}</td>
+                                <td class="col-8">${recipe.description}</td>
+                                <td class="col-2"><button type="button" class="btn btn-primary rounded-0"><a href="/app/recipe/details?id=${recipe.id}">Szczegóły</a></button></td>
+                            </tr>
+                        </c:forEach>
+                        </tbody>
+                    </table>
+                    <% i++; %>
+                </c:forEach>
+
             </div>
         </div>
     </div>

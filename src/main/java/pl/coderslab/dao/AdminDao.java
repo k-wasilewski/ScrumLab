@@ -17,7 +17,8 @@ public class AdminDao {
             "enable FROM admins WHERE  id=?;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?;";
     private static final String GET_ALL_EMAILS = "SELECT email FROM admins;";
-private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE  email=?;";
+    private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE  email=?;";
+
     public boolean doesExist(String email) {
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(GET_ALL_EMAILS);
@@ -109,6 +110,7 @@ private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_
             System.out.println("Nie znaleziono bazy");
         }
     }
+
     public Admin get(String email) {
         try (Connection connection = DbUtil.getConnection()) {
             PreparedStatement preparedStatement = connection.prepareStatement(CHECK_IF_ADMIN_QUERY);

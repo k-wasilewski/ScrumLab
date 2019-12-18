@@ -2,6 +2,7 @@ package pl.coderslab.dao;
 
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Plan;
+import pl.coderslab.model.Recipe;
 import pl.coderslab.utils.DbUtil;
 
 import java.sql.Connection;
@@ -22,6 +23,38 @@ public class PlanDao {
     private static final String FIND_ALL_PLAN_QUERY = "SELECT * FROM plan;";
     private static final String READ_PLAN_QUERY = "SELECT * FROM plan where id = ?";
     private static final String UPDATE_PLAN_QUERY = "UPDATE	plan SET name = ? , description = ?, created = ?, admin_id = ? WHERE	id = ?;";
+    private static final String READ_LATEST_PLAN = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1";
+    private static final String COUNT_PLANS_QUERY = "SELECT COUNT(*) AS count FROM plan WHERE admin_id=?;";
+    private static final String READ_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1;";
+    private static final String FIND_ALL_PLAN_DESC_BY_CREATED_QUERY = "SELECT * FROM plan ORDER BY created DESC";
+
+
+    /**
+     * Get last recipe by adminId
+     *
+     * @param adminId
+     * @return
+     */
+    public Plan readLast(Integer adminId) {
+        Plan plan = new Plan();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_LAST_PLAN_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    plan.setId(resultSet.getInt("id"));
+                    plan.setName(resultSet.getString("name"));
+                    plan.setDescription(resultSet.getString("description"));
+                    plan.setCreated(resultSet.getDate("created"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plan;
+    }
 
 
     /**
@@ -42,7 +75,7 @@ public class PlanDao {
                     plan.setName(resultSet.getString("name"));
                     plan.setDescription(resultSet.getString("description"));
                     plan.setCreated(resultSet.getDate("created"));
-                    plan.setAdmin_id(resultSet.getString("admin_id"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
                 }
             }
         } catch (Exception e) {
@@ -69,7 +102,30 @@ public class PlanDao {
                 planToAdd.setName(resultSet.getString("name"));
                 planToAdd.setDescription(resultSet.getString("description"));
                 planToAdd.setCreated(resultSet.getDate("created"));
-                planToAdd.setAdmin_id(resultSet.getString("admin_id"));
+                planToAdd.setAdmin_id(resultSet.getInt("admin_id"));
+                planList.add(planToAdd);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
+
+    }
+
+    public List<Plan> findAllDescByCreated() {
+        List<Plan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_PLAN_DESC_BY_CREATED_QUERY);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Plan planToAdd = new Plan();
+                planToAdd.setId(resultSet.getInt("id"));
+                planToAdd.setName(resultSet.getString("name"));
+                planToAdd.setDescription(resultSet.getString("description"));
+                planToAdd.setCreated(resultSet.getDate("created"));
+                planToAdd.setAdmin_id(resultSet.getInt("admin_id"));
                 planList.add(planToAdd);
             }
 
@@ -149,7 +205,6 @@ public class PlanDao {
             statement.setString(1, plan.getName());
             statement.setString(2, plan.getDescription());
             statement.setTimestamp(3, new Timestamp(System.currentTimeMillis()));
-//            statement.setDate(3, (Date) plan.getCreated());
             statement.setInt(4, plan.getAdmin_id());
 
             statement.executeUpdate();
@@ -157,6 +212,67 @@ public class PlanDao {
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * Get plan count by adminId
+     *
+     * @param adminId
+     * @return
+     */
+    public int count(Integer adminId) {
+        int count=0;
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(COUNT_PLANS_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    count=resultSet.getInt("count");
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return count;
+    }
+
+    /**
+     * Read Latest Plan
+     *
+     * @param admin_id
+     */
+    public Plan readLatestPlan(int admin_id) {
+        Plan plan = new Plan();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_LATEST_PLAN)
+        ) {
+            statement.setInt(1, admin_id);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    plan.setId(resultSet.getInt("id"));
+                    plan.setName(resultSet.getString("name"));
+                    plan.setDescription(resultSet.getString("description"));
+                    plan.setCreated(resultSet.getDate("created"));
+                    plan.setAdmin_id(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return plan;
+
+    }
+
+    public int getPlanIdByName(String planName) {
+        List<Plan> plans = findAll();
+        int planId = 0;
+        for (Plan plan : plans) {
+            if (planName.equals(plan.getName())) {
+                planId = plan.getId();
+            }
+        }
+        return planId;
     }
 
 }
