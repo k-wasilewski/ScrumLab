@@ -107,7 +107,11 @@
                             <td class="col-7">
                                 ${plan.description}
                             </td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap"><a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                                <a href="#" onclick='javascript:window.open("/delplan?id=${plan.id}", "winname",
+                                        "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
+                                        "resizable=no,width=360,height=130");'
+                                   class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                 <a href="/app-details-schedules.html" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                 <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
                             </td>
