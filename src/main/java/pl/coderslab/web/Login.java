@@ -23,7 +23,7 @@ public class Login extends HttpServlet {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin);
                 //getServletContext().getRequestDispatcher("/index").forward(request, response);
-                response.sendRedirect("/index");
+                response.sendRedirect("/dashboard");
             } else {
                 request.setAttribute("loginError", "Niewłaściwe dane logowania.");
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);

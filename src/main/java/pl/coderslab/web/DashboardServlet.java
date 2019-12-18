@@ -18,8 +18,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet("/index")
-public class IndexServlet extends HttpServlet {
+@WebServlet("/dashboard")
+public class DashboardServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -64,6 +64,6 @@ public class IndexServlet extends HttpServlet {
         request.setAttribute("lastPlan", lastPlan);
         request.setAttribute("recipeCount", recipeCount);
         request.setAttribute("planCount", planCount);
-        getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/dashboard.jsp").forward(request, response);
     }
 }
