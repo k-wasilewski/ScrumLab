@@ -24,10 +24,13 @@ public class DelRecipeServlet extends HttpServlet {
 
         if (request.getParameter("del")!=null && request.getParameter("del").equals("true")) {
             RecipePlanDao rpdao = new RecipePlanDao();
-            rpdao.delete(recipeId);
-            RecipeDao rdao = new RecipeDao();
-            rdao.delete(recipeId);
-            getServletContext().getRequestDispatcher("/app/recipe/list/").forward(request, response);
+            if (recipeId!=0 && rpdao.findAllByRecipe(recipeId).isEmpty()) {
+                RecipeDao rdao = new RecipeDao();
+                rdao.delete(recipeId);
+                getServletContext().getRequestDispatcher("/app/recipe/list/?msg=true").forward(request, response);
+            } else {
+                getServletContext().getRequestDispatcher("/app/recipe/list/?failed=true").forward(request, response);
+            }
         } else getServletContext().getRequestDispatcher("/recipe-delete-confirmation-popup.jsp").forward(request, response);
     }
 }

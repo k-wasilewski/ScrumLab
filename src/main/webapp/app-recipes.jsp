@@ -80,6 +80,8 @@
                 </div>
                 <table class="table border-bottom schedules-content">
                     <thead>
+                    <c:if test="${not empty param.msg}" >Usunięto przepis</c:if>
+                    <c:if test="${not empty param.failed}" >Nie można usunąć przepisu</c:if>
                     <tr class="d-flex text-color-darker">
                         <th scope="col" class="col-1">ID</th>
                         <th scope="col" class="col-2">NAZWA</th>
