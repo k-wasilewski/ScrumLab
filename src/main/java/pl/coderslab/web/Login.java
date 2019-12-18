@@ -20,7 +20,7 @@ public class Login extends HttpServlet {
         if (admin != null) {
             if (admin.comparePassword(request.getParameter("password"))) {
                 HttpSession session = request.getSession();
-                session.setAttribute("admin", admin)
+                session.setAttribute("admin", admin);
                 response.sendRedirect("/dashboard");
             } else {
                 request.setAttribute("loginError", "Niewłaściwe dane logowania.");
