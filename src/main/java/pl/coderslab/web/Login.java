@@ -1,6 +1,5 @@
 package pl.coderslab.web;
 
-import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.dao.AdminDao;
 import pl.coderslab.model.Admin;
 
@@ -19,7 +18,7 @@ public class Login extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         Admin admin = adminDao.get(email);
         if (admin != null) {
-            if (BCrypt.checkpw(request.getParameter("password"), admin.getPassword())) {
+            if (admin.comparePassword(request.getParameter("password"))) {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin)
                 response.sendRedirect("/dashboard");
