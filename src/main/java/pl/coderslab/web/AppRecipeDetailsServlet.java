@@ -17,9 +17,16 @@ public class AppRecipeDetailsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int recipeId=Integer.parseInt(request.getParameter("id"));
+        String recipeName = request.getParameter("name");
         RecipeDao rdao = new RecipeDao();
-        Recipe recipe = rdao.read(recipeId);
+        Recipe recipe = new Recipe();
+        if (request.getParameter("id") != null) {
+            int recipeId = Integer.parseInt(request.getParameter("id"));
+            recipe = rdao.read(recipeId);
+        }
+        if (recipeName != null) {
+            recipe = rdao.read(recipeName);
+        }
         request.setAttribute("recipe", recipe);
         getServletContext().getRequestDispatcher("/app-recipe-details.jsp").forward(request, response);
     }
