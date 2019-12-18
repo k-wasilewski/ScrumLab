@@ -55,7 +55,7 @@ public class RecipeDao {
     public Recipe read(String name) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
-             PreparedStatement statement = connection.prepareStatement(READ_RECIPE_QUERY)
+             PreparedStatement statement = connection.prepareStatement(READ_RECIPE_BY_NAME_QUERY)
         ) {
             statement.setString(1, name);
             try (ResultSet resultSet = statement.executeQuery()) {

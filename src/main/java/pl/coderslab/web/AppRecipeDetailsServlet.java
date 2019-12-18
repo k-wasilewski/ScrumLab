@@ -17,11 +17,11 @@ public class AppRecipeDetailsServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int recipeId = Integer.parseInt(request.getParameter("id"));
         String recipeName = request.getParameter("name");
         RecipeDao rdao = new RecipeDao();
         Recipe recipe = new Recipe();
-        if (recipeId > 0) {
+        if (request.getParameter("id") != null) {
+            int recipeId = Integer.parseInt(request.getParameter("id"));
             recipe = rdao.read(recipeId);
         }
         if (recipeName != null) {

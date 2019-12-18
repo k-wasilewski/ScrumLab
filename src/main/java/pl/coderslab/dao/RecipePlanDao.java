@@ -18,18 +18,7 @@ public class RecipePlanDao {
             "JOIN day_name on day_name.id=day_name_id\n" +
             "JOIN recipe on recipe.id=recipe_id WHERE plan_id = ?\n" +
             "ORDER by day_name.display_order, recipe_plan.display_order;";
-    private static final String DELETE_RECIPE_FROM_PLAN_QUERY = "DELETE from recipe_plan WHERE plan_id = ? AND " +
-            "recipe_id = ?;";
 
-    public void deleteRecipeFromPlan(int planId, int recipeId){
-        try (Connection connection = DbUtil.getConnection()){
-            PreparedStatement preparedStatement = connection.prepareStatement(DELETE_RECIPE_FROM_PLAN_QUERY);
-            preparedStatement.executeUpdate();
-        }catch (SQLException e){
-            e.printStackTrace();
-            System.out.println("Nie znaleziono bazy");
-        }
-    }
     public RecipePlan details(int planId) {
         RecipePlan recipePlan = new RecipePlan();
         Map<String, List<String[]>> planDetails = new HashMap<>();
