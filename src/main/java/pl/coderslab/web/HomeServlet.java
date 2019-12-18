@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Do not change servlet address !!!
  */
-@WebServlet("")
+@WebServlet("/some/other/home/wewillneveruse")
 public class HomeServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
