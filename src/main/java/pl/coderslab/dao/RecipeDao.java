@@ -21,6 +21,71 @@ public class RecipeDao {
             " preparation_time = ?, preparation = ? WHERE id = ?;";
     private static final String COUNT_RECIPES_QUERY = "SELECT COUNT(*) AS count FROM recipe WHERE admin_id=?;";
     private static final String FIND_ALL_RECIPES_DESC_QUERY = "SELECT * FROM recipe ORDER BY created DESC;";
+    private static final String READ_LAST_RECIPE_QUERY = "SELECT * FROM recipe WHERE admin_id = ? ORDER BY created DESC LIMIT 1;";
+    private static final String FIND_ALL_RECIPES_BY_PLANDAY = "SELECT recipe.* FROM recipe JOIN recipe_plan ON recipe.id=recipe_plan.recipe_id " +
+            "WHERE plan_id = ? AND day_name_id = ?;";
+
+    /**
+     * Return all recipes by planId
+     *
+     * @params planId, dayNameId
+     * @return
+     */
+    public List<Recipe> findAllByPlanDay(Integer planId, Integer dayNameId) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_RECIPES_BY_PLANDAY)) {
+
+
+            statement.setInt(1, planId);
+            statement.setInt(2, dayNameId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    Recipe recipeToAdd = new Recipe();
+                    recipeToAdd.setId(resultSet.getInt("id"));
+                    recipeToAdd.setIngredients(resultSet.getString("ingredients"));
+                    recipeToAdd.setDescription(resultSet.getString("description"));
+                    recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipeToAdd.setPreparation(resultSet.getString("preparation"));
+                    recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
+                    recipeList.add(recipeToAdd);
+                }
+
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return recipeList;
+    }
+
+    /**
+     * Get last recipe by adminId
+     *
+     * @param adminId
+     * @return
+     */
+    public Recipe readLast(Integer adminId) {
+        Recipe recipe = new Recipe();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_LAST_RECIPE_QUERY)
+        ) {
+            statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    recipe.setId(resultSet.getInt("id"));
+                    recipe.setName(resultSet.getString("name"));
+                    recipe.setIngredients(resultSet.getString("ingredients"));
+                    recipe.setDescription(resultSet.getString("description"));
+                    recipe.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipe.setPreparation(resultSet.getString("preparation"));
+                    recipe.setAdmin_id(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recipe;
+    }
 
     /**
      * Get recipe by id
@@ -65,6 +130,7 @@ public class RecipeDao {
             while (resultSet.next()) {
                 Recipe recipeToAdd = new Recipe();
                 recipeToAdd.setId(resultSet.getInt("id"));
+                recipeToAdd.setName(resultSet.getString("name"));
                 recipeToAdd.setIngredients(resultSet.getString("ingredients"));
                 recipeToAdd.setDescription(resultSet.getString("description"));
                 recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
@@ -72,11 +138,13 @@ public class RecipeDao {
                 recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
                 recipeList.add(recipeToAdd);
             }
+            return recipeList;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return recipeList;
+
     }
 
     /**
@@ -212,5 +280,16 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public int getRecipeIdByName(String recipeName) {
+        List<Recipe> recipes = findAll();
+        int recipeId = 0;
+        for (Recipe recipe : recipes) {
+            if (recipeName.equals(recipe.getName())) {
+                recipeId = recipe.getId();
+            }
+        }
+        return recipeId;
     }
 }
