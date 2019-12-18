@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/app/recipe/list/")
+@WebServlet("/app/recipe/list")
 public class AppRecipesServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -24,6 +24,8 @@ public class AppRecipesServlet extends HttpServlet {
         HttpSession sess = request.getSession();
         sess.setMaxInactiveInterval(3600);
         sess.setAttribute("recipeList", recipeList);
+        for (Recipe r : recipeList) System.out.println(r.getName());
+
         getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
     }
 }

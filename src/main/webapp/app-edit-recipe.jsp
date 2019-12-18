@@ -1,7 +1,4 @@
-<%@ page import="pl.coderslab.model.Recipe" %>
-<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -70,50 +67,64 @@
                 </a>
             </li>
         </ul>
-
-
-        <div class="m-4 p-3 width-medium">
+        <div class="m-4 p-3 width-medium text-color-darker">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
-                <div class="row border-bottom border-3 p-1 m-1">
-                    <div class="col noPadding"><h3 class="color-header text-uppercase">Lista Przepisów</h3></div>
-                    <div class="col noPadding d-flex justify-content-end mb-2"><a href="/app-add-recipe.html" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj przepis</a></div>
+                <div class="mt-4 ml-4 mr-4">
+                    <!-- fix action, method -->
+                    <!-- add name attribute for all inputs -->
+                    <form action="/app/recipe/edit" method="post">
+                        <input type="hidden" name="id" value="${editedRecipe.id}"">
+                        <div class="row border-bottom border-3">
+                            <div class="col"><h3 class="color-header text-uppercase">Edycja przepisu</h3></div>
+                            <div class="col d-flex justify-content-end mb-2">
+                                <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz</button>
+                            </div>
+                        </div>
+
+                        <table class="table borderless">
+                            <tbody>
+                            <tr class="d-flex">
+                                <th scope="row" class="col-2">Nazwa Przepisu</th>
+                                <td class="col-7">
+                                    <input name="name" class="w-100 p-1" value="${editedRecipe.name}">
+                                </td>
+                            </tr>
+                            <tr class="d-flex">
+                                <th scope="row" class="col-2">Opis przepisu</th>
+                                <td class="col-7">
+                                    <textarea name="description" class="w-100 p-1" rows="5">${editedRecipe.description}</textarea></td>
+                            </tr>
+                            <tr class="d-flex">
+                                <th scope="row" class="col-2">Przygotowanie (minuty)</th>
+                                <td class="col-3">
+                                    <input name="preparation_time" class="p-1" type="number" value="${editedRecipe.preparation_time}">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+
+                        <div class="row d-flex">
+                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Sposób przygotowania</h3></div>
+                            <div class="col-2"></div>
+                            <div class="col-5 border-bottom border-3"><h3 class="text-uppercase">Składniki</h3></div>
+                        </div>
+                        <div class="row d-flex">
+                            <div class="col-5 p-4">
+                                <textarea name="preparation" class="w-100 p-1" rows="10">${editedRecipe.preparation}</textarea>
+                            </div>
+                            <div class="col-2"></div>
+
+                            <div class="col-5 p-4">
+                                    <textarea name="ingredients" class="w-100 p-1" rows="10">${editedRecipe.ingredients}</textarea>
+                            </div>
+                        </div>
+                    </form>
                 </div>
-                <table class="table border-bottom schedules-content">
-                    <thead>
-                    <c:if test="${not empty param.msg}" >Usunięto przepis</c:if>
-                    <c:if test="${not empty param.failed}" >Nie można usunąć przepisu</c:if>
-                    <tr class="d-flex text-color-darker">
-                        <th scope="col" class="col-1">ID</th>
-                        <th scope="col" class="col-2">NAZWA</th>
-                        <th scope="col" class="col-7">OPIS</th>
-                        <th scope="col" class="col-2 center">AKCJE</th>
-                    </tr>
-                    </thead>
-                    <tbody class="text-color-lighter">
-                    <c:forEach items="${sessionScope.recipeList}" var="recipe">
-                        <tr class="d-flex">
-                            <th scope="row" class="col-1">${recipe.id}</th>
-                            <td class="col-2">${recipe.name}</td>
-                            <td class="col-7">${recipe.description}</td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="#" onclick='javascript:window.open("/delrecipe?id=${recipe.id}", "winname",
-                                        "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
-                                        "resizable=no,width=360,height=130");'
-                                   class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app/recipe/details?id=${recipe.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <form action="/app/recipe/edit" method="post">
-                                    <button type="submit" name="recipeId" value="${recipe.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</button>
-                                </form>
-                            </td>
-                        </tr>
-                    </c:forEach>
-                    </tbody>
-                </table>
+
             </div>
         </div>
     </div>
 </section>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

@@ -161,6 +161,7 @@ public class RecipeDao {
             while (resultSet.next()) {
                 Recipe recipeToAdd = new Recipe();
                 recipeToAdd.setId(resultSet.getInt("id"));
+                recipeToAdd.setName(resultSet.getString("name"));
                 recipeToAdd.setIngredients(resultSet.getString("ingredients"));
                 recipeToAdd.setDescription(resultSet.getString("description"));
                 recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
