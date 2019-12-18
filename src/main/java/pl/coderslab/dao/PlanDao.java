@@ -23,6 +23,8 @@ public class PlanDao {
     private static final String READ_LATEST_PLAN = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1";
     private static final String COUNT_PLANS_QUERY = "SELECT COUNT(*) AS count FROM plan WHERE admin_id=?;";
     private static final String READ_LAST_PLAN_QUERY = "SELECT * FROM plan WHERE admin_id = ? ORDER BY created DESC LIMIT 1;";
+    private static final String FIND_ALL_PLAN_DESC_BY_CREATED_QUERY = "SELECT * FROM plan ORDER BY created DESC";
+
 
     /**
      * Get last recipe by adminId
@@ -88,6 +90,29 @@ public class PlanDao {
         List<Plan> planList = new ArrayList<>();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(FIND_ALL_PLAN_QUERY);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Plan planToAdd = new Plan();
+                planToAdd.setId(resultSet.getInt("id"));
+                planToAdd.setName(resultSet.getString("name"));
+                planToAdd.setDescription(resultSet.getString("description"));
+                planToAdd.setCreated(resultSet.getDate("created"));
+                planToAdd.setAdmin_id(resultSet.getInt("admin_id"));
+                planList.add(planToAdd);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return planList;
+
+    }
+
+    public List<Plan> findAllDescByCreated() {
+        List<Plan> planList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_PLAN_DESC_BY_CREATED_QUERY);
              ResultSet resultSet = statement.executeQuery()) {
 
             while (resultSet.next()) {
