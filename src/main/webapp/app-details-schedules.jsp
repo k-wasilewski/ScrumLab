@@ -79,7 +79,7 @@
                 <div class="row border-bottom border-3 p-1 m-1">
                     <div class="col noPadding">
                         <h3 class="color-header text-uppercase">SZCZEGÓŁY PLANU</h3>
-                    </div>git
+                    </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
                         <a href="#" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
                     </div>
