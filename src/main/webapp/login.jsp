@@ -21,7 +21,7 @@
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
-<header>
+<header class="page-header">
     <%@ include file="header.jsp" %>
 </header>
 <section class="dashboard-section">

@@ -144,4 +144,15 @@ public class DayNameDao {
         }
 
     }
+
+    public int getDayIdByName(String dayName) {
+        List<DayName> daynames = findAll();
+        int dayId = 0;
+        for (DayName day : daynames) {
+            if (dayName.equals(day.getName())) {
+                dayId = day.getId();
+            }
+        }
+        return dayId;
+    }
 }
