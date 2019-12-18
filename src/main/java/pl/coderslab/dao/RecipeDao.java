@@ -65,6 +65,7 @@ public class RecipeDao {
             while (resultSet.next()) {
                 Recipe recipeToAdd = new Recipe();
                 recipeToAdd.setId(resultSet.getInt("id"));
+                recipeToAdd.setName(resultSet.getString("name"));
                 recipeToAdd.setIngredients(resultSet.getString("ingredients"));
                 recipeToAdd.setDescription(resultSet.getString("description"));
                 recipeToAdd.setPreparation_time(resultSet.getInt("preparation_time"));
@@ -72,11 +73,13 @@ public class RecipeDao {
                 recipeToAdd.setAdmin_id(resultSet.getInt("admin_id"));
                 recipeList.add(recipeToAdd);
             }
+            return recipeList;
 
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-        return recipeList;
+
     }
 
     /**
@@ -212,5 +215,16 @@ public class RecipeDao {
             e.printStackTrace();
         }
         return count;
+    }
+
+    public int getRecipeIdByName(String recipeName) {
+        List<Recipe> recipes = findAll();
+        int recipeId = 0;
+        for (Recipe recipe : recipes) {
+            if (recipeName.equals(recipe.getName())) {
+                recipeId = recipe.getId();
+            }
+        }
+        return recipeId;
     }
 }

@@ -60,7 +60,7 @@ public class Plan {
         return admin_id;
     }
 
-    public void setAdmin_id(String created) {
+    public void setAdmin_id(int admin_id) {
         this.admin_id = admin_id;
     }
 }

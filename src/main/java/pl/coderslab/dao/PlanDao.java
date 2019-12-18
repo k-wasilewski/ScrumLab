@@ -180,4 +180,15 @@ public class PlanDao {
 
     }
 
+    public int getPlanIdByName(String planName) {
+        List<Plan> plans = findAll();
+        int planId = 0;
+        for (Plan plan : plans) {
+            if (planName.equals(plan.getName())) {
+                planId = plan.getId();
+            }
+        }
+        return planId;
+    }
+
 }
