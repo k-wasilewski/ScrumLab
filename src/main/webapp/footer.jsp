@@ -35,7 +35,7 @@
                            aria-label="Recipient's username" aria-describedby="basic-addon2">
                     <div class="input-group-append">
                         <button class="input-group-text btn-color border-0 rounded-0" type="submit" id="basic-addon2"><a
-                                href="index.html">Lorem</a></button>
+                                href="">Lorem</a></button> <!-- newsletter link -->
                     </div>
                 </div>
                 <div class="container d-flex-row">

@@ -27,44 +27,8 @@
 </header>
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-        <ul class="nav flex-column long-bg">
-            <li class="nav-item">
-                <a class="nav-link" href="/dashboard.jsp">
-                    <span>Pulpit</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-recipes.jsp">
-                    <span>Przepisy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-schedules.jsp">
-                    <span>Plany</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-edit-user-data.jsp">
-                    <span>Edytuj dane</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="/app-edit-password.jsp">
-                    <span>Zmień hasło</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/super-admin-users.jsp">
-                    <span>Użytkownicy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
+        <%@ include file="menu.jsp" %>
+
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
@@ -102,7 +66,7 @@
                                 Numer posiłku
                             </label>
                             <div class="col-sm-2">
-                                <input type="text" class="form-control" value="" id="number" placeholder="Numer posiłku" name="displayOrder">
+                                <input required type="number" class="form-control" value="" id="number" placeholder="Numer posiłku" name="displayOrder">
                             </div>
                         </div>
                         <div class="form-group row">
