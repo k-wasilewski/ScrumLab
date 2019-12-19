@@ -25,12 +25,13 @@ public class RecipeDao {
     private static final String READ_LAST_RECIPE_QUERY = "SELECT * FROM recipe WHERE admin_id = ? ORDER BY created DESC LIMIT 1;";
     private static final String FIND_ALL_RECIPES_BY_PLANDAY = "SELECT recipe.* FROM recipe JOIN recipe_plan ON recipe.id=recipe_plan.recipe_id " +
             "WHERE plan_id = ? AND day_name_id = ?;";
+    private static final String FIND_RECIPES_BY_NAME_QUERY = "SELECT * from recipe where name LIKE ?";
 
     /**
      * Return all recipes by planId
      *
-     * @params planId, dayNameId
      * @return
+     * @params planId, dayNameId
      */
     public List<Recipe> findAllByPlanDay(Integer planId, Integer dayNameId) {
         List<Recipe> recipeList = new ArrayList<>();
@@ -291,14 +292,14 @@ public class RecipeDao {
      * @return
      */
     public int count(Integer adminId) {
-        int count=0;
+        int count = 0;
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(COUNT_RECIPES_QUERY)
         ) {
             statement.setInt(1, adminId);
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
-                    count=resultSet.getInt("count");
+                    count = resultSet.getInt("count");
                 }
             }
         } catch (Exception e) {
@@ -316,5 +317,31 @@ public class RecipeDao {
             }
         }
         return recipeId;
+    }
+
+
+    public List<Recipe> findRecipesByName(String name) {
+        List<Recipe> recipeList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_RECIPES_BY_NAME_QUERY)) {
+            statement.setString(1, '%' + name + '%');
+
+            try (ResultSet resultSet = statement.executeQuery()) {
+
+                while (resultSet.next()) {
+                    Recipe recipeToAdd = new Recipe();
+                    recipeToAdd.setId(resultSet.getInt("id"));
+                    recipeToAdd.setName(resultSet.getString("name"));
+                    recipeToAdd.setDescription(resultSet.getString("description"));
+                    recipeList.add(recipeToAdd);
+                }
+            }
+            return recipeList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
     }
 }
