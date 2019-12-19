@@ -36,7 +36,7 @@
                         <h3 class="color-header text-uppercase">DODAJ PRZEPIS DO PLANU</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <input type="submit" value="Wyślij" form="addRecipeToPlan" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4"/>
+                        <input type="submit" value="Wyślij" form="addRecipeToPlan" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4"/>
                     </div>
                 </div>
                 <div class="schedules-content">
