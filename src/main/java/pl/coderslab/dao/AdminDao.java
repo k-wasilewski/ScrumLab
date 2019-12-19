@@ -74,21 +74,15 @@ public class AdminDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             Admin admin = new Admin();
             if (resultSet.next()) {
-                SuperAdmin superAdmin = new SuperAdmin();
                 admin.setId(resultSet.getInt(1));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                superAdmin.setEnable(admin, resultSet.getByte("enable"));
-                if (resultSet.getByte("superadmin") == 1) {
-                    return superAdmin.setSuperAdmin(admin, (byte) 1);
-                }
-                if (resultSet.getByte("superadmin") == 0) {
-                    superAdmin.setSuperAdmin(admin, (byte) 0);
-                    return admin;
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
+                return admin;
 
-                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,15 +118,9 @@ public class AdminDao {
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                superAdmin.setEnable(admin, resultSet.getByte("enable"));
-                if (resultSet.getByte("superadmin") == 1) {
-                    return superAdmin.setSuperAdmin(admin, (byte) 1);
-                }
-                if (resultSet.getByte("superadmin") == 0) {
-                    superAdmin.setSuperAdmin(admin, (byte) 0);
-                    return admin;
-
-                }
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
+                return admin;
             }
         } catch (SQLException e) {
             e.printStackTrace();
