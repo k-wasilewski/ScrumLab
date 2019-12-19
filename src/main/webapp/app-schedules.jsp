@@ -19,7 +19,7 @@
 
 <body>
 
-=======
+
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-between">
         <a href="/" class="navbar-brand main-logo main-logo-smaller">
@@ -80,9 +80,10 @@
                                        href="/app/delplan?id=${plan.id}"
                                        class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
                                     <a href="/app/plan/details?id=${plan.id}"
-                                       class="btn btn-info rounded-0 text-light m-1">Szczeg
-                                        óły</a>
-                                    <a href="/app/plan/edit?id=${plan.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+                                       class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                    <form action="/app/plan/edit" method="post">
+                                        <button type="submit" name="planId" value="${plan.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
@@ -106,3 +107,5 @@
         crossorigin="anonymous"></script>
 </body>
 </html>
+
+
