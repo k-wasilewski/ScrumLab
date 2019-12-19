@@ -24,14 +24,13 @@ public class SuperAdminDao extends AdminDao {
             List<Admin> admins = new LinkedList<>();
             while (resultSet.next()) {
                 Admin admin = new Admin();
-                SuperAdmin superAdmin = new SuperAdmin();
                 admin.setId(resultSet.getInt(1));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                superAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
-                superAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
                 admins.add(admin);
             }
             return admins;
