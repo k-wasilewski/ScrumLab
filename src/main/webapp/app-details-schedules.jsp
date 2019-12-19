@@ -89,16 +89,9 @@
                                     <td class="col-1 center">
 
                                             <%--                                        popup javascript --%>
-
-
-                                        <form action="/app/plan/delrecipe" method="get"
-                                              onsubmit="return confirm('Czy na pewno chcesz usunąć?')">
-                                                <%--wystarczy onsubmit--%>
-                                            <input name="planId" value="${planId}" type="hidden">
-                                            <button onclick="myFunction()" value="${values[1]}" name="recipeName"
-                                                    class="btn btn-danger rounded-0 text-light m-1">Usuń
-                                            </button>
-                                        </form>
+                                        <a onclick="return confirm('Czy na pewno chcesz usunąć?')"
+                                           href="/app/plan/delrecipe?planId=${planId}&recipeName=${values[1]}"
+                                           class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
 
 
                                     </td>
