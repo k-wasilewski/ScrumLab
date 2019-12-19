@@ -20,12 +20,9 @@ public class DelRecipeFromPlan extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int planId = Integer.parseInt(request.getParameter("planId"));
         String recipeName = request.getParameter("recipeName");
-        System.out.println(recipeName);
         Recipe recipe = RecipeDao.read(recipeName);
         int recipeId = recipe.getId();
-        System.out.println(planId);
-        System.out.println(recipeId);
         RecipePlanDao.delete(planId, recipeId);
-        response.sendRedirect("/app/plan/details?planId="+planId);
+        response.sendRedirect("/app/plan/details?id="+planId);
     }
 }

@@ -19,7 +19,7 @@ public class AppSchedulesDetails extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int planId = 6;//Integer.parseInt(request.getParameter("id"));
+        int planId = Integer.parseInt(request.getParameter("id"));
         PlanDao planDao = new PlanDao();
         Plan plan = planDao.read(planId);
         request.setAttribute("planName", plan.getName());
