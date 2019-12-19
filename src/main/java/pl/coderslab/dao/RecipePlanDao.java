@@ -1,17 +1,15 @@
 package pl.coderslab.dao;
 
-import java.util.ArrayList;
-import java.util.List;
-import pl.coderslab.model.RecipePlan;
-import pl.coderslab.utils.DbUtil;
 import pl.coderslab.exception.NotFoundException;
 import pl.coderslab.model.Plan;
-import pl.coderslab.model.Recipe;
+import pl.coderslab.model.RecipePlan;
 import pl.coderslab.utils.DbUtil;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -27,6 +25,21 @@ public class RecipePlanDao {
     private static final String DELETE_RECIPE_PLAN_QUERY = "DELETE FROM recipe_plan WHERE recipe_id = ?;";
     private static final String DELETE_RECIPE_PLAN_BY_PLANID_QUERY = "DELETE FROM recipe_plan WHERE plan_id = ?;";
     private static final String FIND_ALL_PLANS_BY_RECIPE_QUERY = "SELECT * FROM recipe_plan WHERE recipe_id = ?;";
+    private static final String DELET_RECIPE_FROM_PLAN_QUERY = "DELETE from recipe_plan WHERE plan_id = ? AND " +
+            "recipe_id = ?;";
+
+    public static void delete(int planId, int recipeId) {
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(DELET_RECIPE_FROM_PLAN_QUERY);
+            preparedStatement.setInt(1, planId);
+            preparedStatement.setInt(2, recipeId);
+            preparedStatement.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Nieznaleziono bazy");
+
+        }
+    }
 
     public RecipePlan details(int planId) {
         RecipePlan recipePlan = new RecipePlan();
@@ -50,7 +63,7 @@ public class RecipePlanDao {
             }
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println("Nie znaleziono bazy");
+            System.out.println("Nieznaleziono bazy");
         }
         recipePlan.setPlanDetails(planDetails);
         return recipePlan;
