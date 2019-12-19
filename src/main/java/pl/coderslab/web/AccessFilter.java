@@ -26,7 +26,6 @@ public class AccessFilter implements Filter {
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("admin");
         if (admin == null) {
-            System.out.println("null");
             ((HttpServletResponse)resp).sendRedirect(request.getContextPath() + "/login");
             return;
 

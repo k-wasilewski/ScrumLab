@@ -49,9 +49,9 @@
                 <div class="schedules-content">
                     <% List<Plan> planList = (List<Plan>) request.getAttribute("planList"); %>
                     <%--                <% List<List<Recipe>> listOfListsOfRecipes = (List<List<Recipe>>) request.getAttribute("listOfRecipesByDay"); %>--%>
-                    <% int i=1; %>
+                    <% int i = 1; %>
                     <c:forEach items="${planList}" var="plan">
-                        <% Plan plan=(Plan)session.getAttribute("plan");
+                        <% Plan plan = (Plan) session.getAttribute("plan");
                             session.setAttribute("plan", plan);
                             session.setAttribute("i", i);%>
                         <table class="table border-bottom">
@@ -71,14 +71,13 @@
                                         ${plan.description}
                                 </td>
                                 <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                    <a href="#" onclick='javascript:window.open("/delplan?id=${plan.id}", "winname",
-                                            "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
-                                            "resizable=no,width=360,height=130");'
+                                    <a onclick="return confirm('Czy na pewno chcesz usunąć?')"
+                                       href="/app/delplan?id=${plan.id}"
                                        class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                    <a href="/app/plan/details?id=${plan.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                    <a href="/app/plan/edit?id=${plan.id}"
-                                       class="btn btn-warning rounded-0 text-light m-1">Edytuj
-                                    </a>
+                                    <a href="/app/plan/details?id=${plan.id}"
+                                       class="btn btn-info rounded-0 text-light m-1">Szczeg
+                                        óły</a>
+                                    <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
                                 </td>
                             </tr>
                             </tbody>

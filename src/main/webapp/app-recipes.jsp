@@ -42,8 +42,10 @@
                 </div>
                 <table class="table border-bottom schedules-content">
                     <thead>
-                    <c:if test="${not empty param.msg}" >Usunięto przepis</c:if>
-                    <c:if test="${not empty param.failed}" >Nie można usunąć przepisu</c:if>
+                    <c:choose>
+                        <c:when test="${not empty param.msg}">Usunięto przepis</c:when>
+                        <c:when test="${not empty param.failed}">Nie można usunąć przepisu</c:when>
+                    </c:choose>
                     <tr class="d-flex text-color-darker">
                         <th scope="col" class="col-1">ID</th>
                         <th scope="col" class="col-2">NAZWA</th>
@@ -58,13 +60,14 @@
                             <td class="col-2">${recipe.name}</td>
                             <td class="col-7">${recipe.description}</td>
                             <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="#" onclick='javascript:window.open("/delrecipe?id=${recipe.id}", "winname",
-                                        "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
-                                        "resizable=no,width=360,height=130");'
+                                <a onclick="return confirm('Czy na pewno chcesz usunąć?')" href="/app/delrecipe?id=${recipe.id}"
                                    class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app/recipe/details?id=${recipe.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                <a href="/app/recipe/details?id=${recipe.id}"
+                                   class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                                 <form action="/app/recipe/edit" method="post">
-                                    <button type="submit" name="recipeId" value="${recipe.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</button>
+                                    <button type="submit" name="recipeId" value="${recipe.id}"
+                                            class="btn btn-warning rounded-0 text-light m-1">Edytuj
+                                    </button>
                                 </form>
                             </td>
                         </tr>
