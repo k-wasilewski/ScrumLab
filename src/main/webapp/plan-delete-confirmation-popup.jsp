@@ -29,6 +29,6 @@
 <body>
 <div class="col-10 text-left"><h4>Czy na pewno chcesz usunąć plan?</h4></div>
 <a href="/delplan?del=true" onclick="CloseAndRefreshOK(); return true" class="btn btn-info rounded-0 text-light m-1">OK</a>
-<a onclick="CloseAndRefreshAbort(); return true" class="btn btn-warning rounded-0 text-light m-1">Anuluj</a>
+<a href="/app/recipe/list" onclick="CloseAndRefreshAbort(); return true" class="btn btn-warning rounded-0 text-light m-1">Anuluj</a>
 </body>
 </html>
