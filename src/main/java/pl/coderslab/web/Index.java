@@ -1,5 +1,8 @@
 package pl.coderslab.web;
 
+import pl.coderslab.dao.RecipeDao;
+import pl.coderslab.model.Recipe;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -14,6 +17,9 @@ public class Index extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        RecipeDao rdao = new RecipeDao();
+        Recipe absoluteLast=rdao.readAbsoluteLast();
+        request.setAttribute("lastRecipe", absoluteLast);
         getServletContext().getRequestDispatcher("/index.jsp").forward(request, response);
     }
 }
