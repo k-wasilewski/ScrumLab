@@ -35,44 +35,7 @@
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-        <ul class="nav flex-column long-bg">
-            <li class="nav-item">
-                <a class="nav-link" href="/dashboard.html">
-                    <span>Pulpit</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-recipes.html">
-                    <span>Przepisy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-schedules.html">
-                    <span>Plany</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-edit-user-data.html">
-                    <span>Edytuj dane</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="/app-edit-password.html">
-                    <span>Zmień hasło</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/super-admin-users.html">
-                    <span>Użytkownicy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
+        <%@ include file="menu.jsp" %>
 
         <div class="m-4 p-3 width-medium ">
             <div class="dashboard-content border-dashed p-3 m-4">
@@ -81,7 +44,7 @@
                         <h3 class="color-header text-uppercase">SZCZEGÓŁY PLANU</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <a href="#" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
+                        <a href="/app/plan/list" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
                     </div>
                 </div>
 
@@ -126,16 +89,9 @@
                                     <td class="col-1 center">
 
                                             <%--                                        popup javascript --%>
-
-
-                                        <form action="/app/plan/delrecipe" method="get"
-                                              onsubmit="return confirm('Czy na pewno chcesz usunąć?')">
-                                                <%--wystarczy onsubmit--%>
-                                            <input name="planId" value="${planId}" type="hidden">
-                                            <button onclick="myFunction()" value="${values[1]}" name="recipeName"
-                                                    class="btn btn-danger rounded-0 text-light m-1">Usuń
-                                            </button>
-                                        </form>
+                                        <a onclick="return confirm('Czy na pewno chcesz usunąć?')"
+                                           href="/app/plan/delrecipe?planId=${planId}&recipeName=${values[1]}"
+                                           class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
 
 
                                     </td>

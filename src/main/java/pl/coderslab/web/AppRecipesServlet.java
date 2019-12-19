@@ -24,7 +24,13 @@ public class AppRecipesServlet extends HttpServlet {
         HttpSession sess = request.getSession();
         sess.setMaxInactiveInterval(3600);
         sess.setAttribute("recipeList", recipeList);
+        if (request.getParameter("msg") != null) {
+            getServletContext().getRequestDispatcher("/app-recipes.jsp?msg=true").forward(request, response);
+        } else if (request.getParameter("failed") != null) {
+            getServletContext().getRequestDispatcher("/app-recipes.jsp?failed=true").forward(request, response);
 
-        getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
+        } else {
+            getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
+        }
     }
 }

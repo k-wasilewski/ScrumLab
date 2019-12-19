@@ -32,44 +32,7 @@
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
-        <ul class="nav flex-column long-bg">
-            <li class="nav-item">
-                <a class="nav-link" href="/dashboard.html">
-                    <span>Pulpit</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-recipes.html">
-                    <span>Przepisy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-schedules.html">
-                    <span>Plany</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/app-edit-user-data.html">
-                    <span>Edytuj dane</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="/app-edit-password.html">
-                    <span>Zmień hasło</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/super-admin-users.html">
-                    <span>Użytkownicy</span>
-                    <i class="fas fa-angle-right"></i>
-                </a>
-            </li>
-        </ul>
+        <%@ include file="menu.jsp" %>
 
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
@@ -78,7 +41,7 @@
                         <h3 class="color-header text-uppercase">LISTA PLANÓW</h3>
                     </div>
                     <div class="col d-flex justify-content-end mb-2 noPadding">
-                        <a href="/app/plan/add" class="btn btn-success rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj plan</a>
+                        <a href="/app/plan/add" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj plan</a>
                     </div>
                 </div>
 
@@ -86,39 +49,40 @@
                 <div class="schedules-content">
                     <% List<Plan> planList = (List<Plan>) request.getAttribute("planList"); %>
                     <%--                <% List<List<Recipe>> listOfListsOfRecipes = (List<List<Recipe>>) request.getAttribute("listOfRecipesByDay"); %>--%>
-                    <% int i=1; %>
+                    <% int i = 1; %>
                     <c:forEach items="${planList}" var="plan">
-                        <% Plan plan=(Plan)session.getAttribute("plan");
+                        <% Plan plan = (Plan) session.getAttribute("plan");
                             session.setAttribute("plan", plan);
                             session.setAttribute("i", i);%>
-                    <table class="table border-bottom">
-                        <thead>
-                        <tr class="d-flex">
-                            <th class="col-1">ID</th>
-                            <th class="col-2">NAZWA</th>
-                            <th class="col-7">OPIS</th>
-                            <th class="col-2 center">AKCJE</th>
-                        </tr>
-                        </thead>
-                        <tbody class="text-color-lighter">
-                        <tr class="d-flex">
-                            <td class="col-1">${plan.id}</td>
-                            <td class="col-2">${plan.name}</td>
-                            <td class="col-7">
-                                ${plan.description}
-                            </td>
-                            <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                <a href="#" onclick='javascript:window.open("/delplan?id=${plan.id}", "winname",
-                                        "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
-                                        "resizable=no,width=360,height=130");'
-                                   class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                <a href="/app/plan/details?id=${plan.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
-                            </td>
-                        </tr>
-                        </tbody>
-                    </table>
-                    <% i++; %>
+                        <table class="table border-bottom">
+                            <thead>
+                            <tr class="d-flex">
+                                <th class="col-1">ID</th>
+                                <th class="col-2">NAZWA</th>
+                                <th class="col-7">OPIS</th>
+                                <th class="col-2 center">AKCJE</th>
+                            </tr>
+                            </thead>
+                            <tbody class="text-color-lighter">
+                            <tr class="d-flex">
+                                <td class="col-1">${plan.id}</td>
+                                <td class="col-2">${plan.name}</td>
+                                <td class="col-7">
+                                        ${plan.description}
+                                </td>
+                                <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
+                                    <a onclick="return confirm('Czy na pewno chcesz usunąć?')"
+                                       href="/app/delplan?id=${plan.id}"
+                                       class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+                                    <a href="/app/plan/details?id=${plan.id}"
+                                       class="btn btn-info rounded-0 text-light m-1">Szczeg
+                                        óły</a>
+                                    <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <% i++; %>
                     </c:forEach>
                 </div>
 

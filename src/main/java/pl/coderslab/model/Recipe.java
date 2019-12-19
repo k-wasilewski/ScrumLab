@@ -88,8 +88,8 @@ public class Recipe {
         this.updated = updated;
     }
 
-    @Override
+    /*@Override
     public String toString() {return "Recipe id="+id+", created: "+created.getTime()+", updated: "+updated.getTime()+
     ", name: "+name+", ingredients: "+ingredients+", description: "+description+", preparation time: "+preparation_time+"," +
-            "admin id: "+admin_id;}
+            "admin id: "+admin_id;}*/
 }

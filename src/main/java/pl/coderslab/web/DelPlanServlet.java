@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/delplan")
+@WebServlet("/app/delplan")
 public class DelPlanServlet extends HttpServlet {
     private int planId;
 
@@ -19,13 +19,11 @@ public class DelPlanServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("id")!=null) planId = Integer.parseInt(request.getParameter("id"));
-
-        if (request.getParameter("del")!=null && request.getParameter("del").equals("true")) {
+        if (!request.getParameter("id").equals("")) {
+            planId = Integer.parseInt(request.getParameter("id"));
+        }
             PlanDao pdao = new PlanDao();
             pdao.delete(planId);
-            getServletContext().getRequestDispatcher("/app/plan/list").forward(request, response);
-        } else getServletContext().getRequestDispatcher("/plan-delete-confirmation-popup.jsp").forward(request, response);
-
+            response.sendRedirect("/app/plan/list");
     }
 }

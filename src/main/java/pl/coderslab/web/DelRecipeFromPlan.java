@@ -23,6 +23,7 @@ public class DelRecipeFromPlan extends HttpServlet {
         Recipe recipe = RecipeDao.read(recipeName);
         int recipeId = recipe.getId();
         RecipePlanDao.delete(planId, recipeId);
+        response.sendRedirect("/app/plan/details?id=" + planId);
         response.sendRedirect("/app/plan/details?id="+planId);
     }
 }
