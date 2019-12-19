@@ -12,8 +12,8 @@ import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/app/recipe/list")
-public class AppRecipesServlet extends HttpServlet {
+@WebServlet("/recipe/list")
+public class RecipesGuestsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
@@ -25,6 +25,6 @@ public class AppRecipesServlet extends HttpServlet {
         sess.setMaxInactiveInterval(3600);
         sess.setAttribute("recipeList", recipeList);
 
-        getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/recipes.jsp").forward(request, response);
     }
 }

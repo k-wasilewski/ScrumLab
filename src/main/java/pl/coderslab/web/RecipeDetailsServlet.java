@@ -8,23 +8,26 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.io.IOException;
-import java.util.List;
 
-@WebServlet("/app/recipe/list")
-public class AppRecipesServlet extends HttpServlet {
+@WebServlet("/recipe/details")
+public class RecipeDetailsServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String recipeName = request.getParameter("name");
         RecipeDao rdao = new RecipeDao();
-        List<Recipe> recipeList = rdao.findAllDesc();
-        HttpSession sess = request.getSession();
-        sess.setMaxInactiveInterval(3600);
-        sess.setAttribute("recipeList", recipeList);
-
-        getServletContext().getRequestDispatcher("/app-recipes.jsp").forward(request, response);
+        Recipe recipe = new Recipe();
+        if (request.getParameter("id") != null) {
+            int recipeId = Integer.parseInt(request.getParameter("id"));
+            recipe = rdao.read(recipeId);
+        }
+        if (recipeName != null) {
+            recipe = rdao.read(recipeName);
+        }
+        request.setAttribute("recipe", recipe);
+        getServletContext().getRequestDispatcher("/recipe-details.jsp").forward(request, response);
     }
 }
