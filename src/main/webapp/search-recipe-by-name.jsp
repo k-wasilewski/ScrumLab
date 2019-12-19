@@ -27,7 +27,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Looking for recipes?</h1>
+                <h1>Szukasz przepisu?</h1>
             </div>
             <div class="col-5">
                 <div class="input-group mb-3">
@@ -36,7 +36,7 @@
                         >
                     </form>
                     <div class="input-group-append">
-                        <input type="submit" value="Search" form="searchrecipebyname"
+                        <input type="submit" value="Szukaj" form="searchrecipebyname"
                                class="input-group-text btn-color border-0 rounded-0"/>
                         </button>
                     </div>
