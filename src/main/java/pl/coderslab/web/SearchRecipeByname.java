@@ -25,14 +25,14 @@ public class SearchRecipeByname extends HttpServlet {
         String searchedName = request.getParameter("searchedname");
         recipes = recipeDao.findRecipesByName(searchedName);
         request.setAttribute("recipes", recipes);
-        getServletContext().getRequestDispatcher("/search-recipe-by-name.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/search-recipe-by-name-list.jsp").forward(request, response);
 
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        getServletContext().getRequestDispatcher("/search-recipe-by-name.jsp").forward(request, response);
+        getServletContext().getRequestDispatcher("/search-recipe-by-name-list.jsp").forward(request, response);
 
     }
 }
