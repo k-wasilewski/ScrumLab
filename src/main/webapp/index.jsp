@@ -63,6 +63,28 @@
     </div>
 </section>
 
+<%@ include file="search-recipe-by-name.jsp" %>
+
+<section class="padding-medium story bg-light" id="about">
+    <div class="container d-flex justify-content-center align-items-center">
+        <div class="row">
+            <div class="col-4 mr-4">
+                <div class="div-img">
+                </div>
+            </div>
+
+            <div class="col-7 ml-4">
+                <h1 class="pb-1">Lorem ipsum dolor sit amet</h1>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat
+                    volutpat. Donec placerat nisl magna, et faucibus arcu condimentum sed. Lorem ipsum dolor sit
+                    amet, consectetur adipiscing elit. Aliquam at porttitor sem. Aliquam erat volutpat. Donec
+                    placerat nisl magna, et faucibus arcu condimentum sed.
+                </p>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section class="section-more padding-small">
     <div class="container d-flex justify-content-between">
         <div class="mr-4">
@@ -111,7 +133,7 @@
     <div class="container">
         <div class="row">
             <div class="col">
-                <h1>Lorem ipsum dolor sie amet</h1>
+                <h1>Lorem ipsum dolor sit amet</h1>
             </div>
             <div class="col-5">
                 <div class="input-group mb-3">
@@ -149,6 +171,7 @@
 </section>
 
 <%@ include file="footer.jsp" %>
+
 
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
