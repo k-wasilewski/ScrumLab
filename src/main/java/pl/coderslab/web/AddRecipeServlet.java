@@ -40,7 +40,7 @@ public class AddRecipeServlet extends HttpServlet {
         RecipeDao rdao = new RecipeDao();
         rdao.create(newRecipe);
 
-        getServletContext().getRequestDispatcher("/addrecipe.jsp").forward(request, response);
+        response.sendRedirect(request.getContextPath() + "/app/recipe/list");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

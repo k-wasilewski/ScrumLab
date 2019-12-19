@@ -26,14 +26,14 @@ public class AddRecipeToPlan extends HttpServlet {
         request.setCharacterEncoding("UTF-8");
         String planName = request.getParameter("planName");
         String mealName = request.getParameter("mealName");
-        int displayOrder = Integer.parseInt(request.getParameter("displayOrder"));
+        int displayOrder=Integer.parseInt(request.getParameter("displayOrder"));
         String recipeName = request.getParameter("recipeName");
         String dayName = request.getParameter("dayName");
         int planId = planDao.getPlanIdByName(planName);
         int recipeId = recipeDao.getRecipeIdByName(recipeName);
         int dayId = dayNameDao.getDayIdByName(dayName);
         recipePlanDao.addRecipeToPlan(recipeId, mealName, displayOrder, dayId, planId);
-        response.sendRedirect("/app/recipe/plan/add");
+        response.sendRedirect("/dashboard");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("plans", plans);
