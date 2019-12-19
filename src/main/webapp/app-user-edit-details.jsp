@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: woobofett
@@ -84,7 +85,8 @@
                         <div class="row border-bottom border-3">
                             <div class="col"><h3 class="color-header text-uppercase">Edytuj dane</h3></div>
                             <div class="col d-flex justify-content-end mb-2">
-                                <button type="submit" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
+                                <button onclick="return confirm('Czy na pewno chcesz dokonać zmian?')" type="submit"
+                                        class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Zapisz
                                 </button>
                             </div>
                         </div>
@@ -107,6 +109,9 @@
                                 <th scope="row" class="col-2"><h4>Email</h4></th>
                                 <td class="col-3">
                                     <input name="email" class="p-1 w-100" type="text" value="${admin.email}">
+                                    <c:if test="${not empty errorMsg}">
+                                        ${errorMsg}
+                                    </c:if>
                                 </td>
                             </tr>
                             </tbody>
