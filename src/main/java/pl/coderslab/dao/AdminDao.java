@@ -15,7 +15,8 @@ public class AdminDao {
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins where id=?;";
     private static final String GET_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, " +
             "enable FROM admins WHERE  id=?;";
-    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?;";
+    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=? " +
+            "WHERE id = ?;";
     private static final String GET_ALL_EMAILS = "SELECT email FROM admins;";
     private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE  email=?;";
 
@@ -98,6 +99,7 @@ public class AdminDao {
             preparedStatement.setString(2, admin.getLastName());
             preparedStatement.setString(3, admin.getEmail());
             preparedStatement.setString(4, admin.getPassword());
+            preparedStatement.setInt(5, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

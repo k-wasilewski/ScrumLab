@@ -19,7 +19,7 @@ public class ContactServlet extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SuperAdminDao sadao = new SuperAdminDao();
-        List<Admin> superadmins = sadao.findAllSuperadmins();
+        List<Admin> superadmins = sadao.findAllSuperAdmins();
         request.setAttribute("superadmins", superadmins);
         getServletContext().getRequestDispatcher("/contact.jsp").forward(request, response);
     }
