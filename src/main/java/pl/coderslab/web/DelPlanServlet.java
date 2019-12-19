@@ -19,7 +19,7 @@ public class DelPlanServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("id")!=null) {
+        if (!request.getParameter("id").equals("")) {
             planId = Integer.parseInt(request.getParameter("id"));
         }
             PlanDao pdao = new PlanDao();
