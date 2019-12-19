@@ -18,6 +18,8 @@
 </head>
 
 <body>
+
+=======
 <header class="page-header">
     <nav class="navbar navbar-expand-lg justify-content-between">
         <a href="/" class="navbar-brand main-logo main-logo-smaller">
@@ -33,6 +35,7 @@
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
         <%@ include file="menu.jsp" %>
+
 
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
@@ -54,6 +57,8 @@
                         <% Plan plan = (Plan) session.getAttribute("plan");
                             session.setAttribute("plan", plan);
                             session.setAttribute("i", i);%>
+
+
                         <table class="table border-bottom">
                             <thead>
                             <tr class="d-flex">
@@ -77,12 +82,13 @@
                                     <a href="/app/plan/details?id=${plan.id}"
                                        class="btn btn-info rounded-0 text-light m-1">Szczeg
                                         óły</a>
-                                    <a href="/app-edit-schedules.html" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
+                                    <a href="/app/plan/edit?id=${plan.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</a>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
                         <% i++; %>
+
                     </c:forEach>
                 </div>
 
