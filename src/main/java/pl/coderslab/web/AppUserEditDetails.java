@@ -23,8 +23,12 @@ public class AppUserEditDetails extends HttpServlet {
 
         HttpSession session = request.getSession();
         Admin admin = (Admin) session.getAttribute("admin");
-
-        if (adminDao.get(email)!= null && !adminDao.get(email).getEmail().equals(admin.getEmail())){
+        if (!newAdmin.setEmail(email)) {
+            request.setAttribute("errorMsg", "Podaj właściwy adres email");
+            request.setAttribute("admin", admin);
+            getServletContext().getRequestDispatcher("/app-user-edit-details.jsp").forward(request, response);
+        }
+        if (adminDao.get(email) != null && !adminDao.get(email).getEmail().equals(admin.getEmail())) {
             request.setAttribute("errorMsg", "Użytkownik o takim adresie e-mail już istnieje");
             request.setAttribute("admin", admin);
             getServletContext().getRequestDispatcher("/app-user-edit-details.jsp").forward(request, response);
