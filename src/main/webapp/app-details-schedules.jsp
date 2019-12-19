@@ -124,7 +124,20 @@
                                     <td class="col-2">${values[0]}</td>
                                     <td class="col-7">${values[1]}</td>
                                     <td class="col-1 center">
-                                        <a href="#" class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
+
+                                            <%--                                        popup javascript --%>
+
+
+                                        <form action="/app/plan/delrecipe" method="get"
+                                              onsubmit="return confirm('Czy na pewno chcesz usunąć?')">
+                                                <%--wystarczy onsubmit--%>
+                                            <input name="planId" value="${planId}" type="hidden">
+                                            <button onclick="myFunction()" value="${values[1]}" name="recipeName"
+                                                    class="btn btn-danger rounded-0 text-light m-1">Usuń
+                                            </button>
+                                        </form>
+
+
                                     </td>
                                     <td class="col-2 center">
                                         <a href="/app/recipe/details?name=${values[1]}"

@@ -24,6 +24,7 @@ public class AppSchedulesDetails extends HttpServlet {
         Plan plan = planDao.read(planId);
         request.setAttribute("planName", plan.getName());
         request.setAttribute("planDescription", plan.getDescription());
+        request.setAttribute("planId", planId);
         RecipePlanDao recipePlanDao = new RecipePlanDao();
         RecipePlan recipePlan = recipePlanDao.details(planId);
         request.setAttribute("recipePlan", recipePlan.getPlanDetails());

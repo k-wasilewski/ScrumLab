@@ -117,7 +117,7 @@ public class RecipeDao {
         return recipe;
     }
 
-    public Recipe read(String name) {
+    public static Recipe read(String name) {
         Recipe recipe = new Recipe();
         try (Connection connection = DbUtil.getConnection();
              PreparedStatement statement = connection.prepareStatement(READ_RECIPE_BY_NAME_QUERY)
