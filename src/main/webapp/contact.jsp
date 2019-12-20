@@ -6,7 +6,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Zaplanuj Jedzonko - Kontakt</title>
+    <title>Zaplanuj Jedzonko</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
           crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Charmonman:400,700|Open+Sans:400,600,700&amp;subset=latin-ext"
@@ -20,7 +20,7 @@
 
 <div class="mt-4 ml-4 mr-4">
     <div class="row border-bottom border-3">
-        <div class="col"><h3 class="color-header text-uppercase">Kontakt</h3></div>
+        <div class="col"><h3 class="color-header text-uppercase">Kontakt do administratorów</h3></div>
     </div>
 
 <section class="padding-large bg-light">
