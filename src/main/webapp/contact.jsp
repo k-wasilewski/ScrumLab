@@ -33,7 +33,7 @@
                         <div class="col-10 text-left">
                             <h4> ${superadmin.firstName} ${superadmin.lastName} </h4>
                             </div>
-                        <div class="col-4 text-left"><h4><a href="mailto:${superadmin.email}">${superadmin.email}/a></h4></div>
+                        <div class="col-4 text-left"><h4><a href="mailto:${superadmin.email}">${superadmin.email}</a></h4></div>
                         </c:forEach>
                     </div>
                 </div>
