@@ -26,6 +26,7 @@ public class RecipeDao {
     private static final String FIND_ALL_RECIPES_BY_PLANDAY = "SELECT recipe.* FROM recipe JOIN recipe_plan ON recipe.id=recipe_plan.recipe_id " +
             "WHERE plan_id = ? AND day_name_id = ?;";
     private static final String FIND_RECIPES_BY_NAME_QUERY = "SELECT * from recipe where name LIKE ?";
+    private static final String READ_ABSOLUTE_LAST_RECIPE_QUERY = "SELECT * FROM recipe ORDER BY created DESC LIMIT 1;";
 
     /**
      * Return all recipes by planId
@@ -72,6 +73,28 @@ public class RecipeDao {
              PreparedStatement statement = connection.prepareStatement(READ_LAST_RECIPE_QUERY)
         ) {
             statement.setInt(1, adminId);
+            try (ResultSet resultSet = statement.executeQuery()) {
+                while (resultSet.next()) {
+                    recipe.setId(resultSet.getInt("id"));
+                    recipe.setName(resultSet.getString("name"));
+                    recipe.setIngredients(resultSet.getString("ingredients"));
+                    recipe.setDescription(resultSet.getString("description"));
+                    recipe.setPreparation_time(resultSet.getInt("preparation_time"));
+                    recipe.setPreparation(resultSet.getString("preparation"));
+                    recipe.setAdmin_id(resultSet.getInt("admin_id"));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return recipe;
+    }
+
+    public Recipe readAbsoluteLast() {
+        Recipe recipe = new Recipe();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(READ_ABSOLUTE_LAST_RECIPE_QUERY)
+        ) {
             try (ResultSet resultSet = statement.executeQuery()) {
                 while (resultSet.next()) {
                     recipe.setId(resultSet.getInt("id"));

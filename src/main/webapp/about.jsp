@@ -24,22 +24,40 @@
     </div>
 
     <section class="padding-large bg-light">
+
         <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
             <div class="carousel-inner container">
                 <div class="carousel-item active">
                     <div class="container w-75 d-flex">
                         <div class="carousel-caption d-block">
-                            <div class="col-10 text-left"><h4> Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit. Donec libero lorem, consectetur sed arcu non,
-                                pretium imperdiet diam, 2019</h4></div><br>
-                            <div class="col-10 text-left"><h5>Kuba Wasilewski - <a class="nav-link color-header" href="mailto:k.k.wasilewski@gmail.com">
+                            <div class="stats">
+                            <div class="dashboard-alerts">
+                                <div class="alert-item alert-info">
+                                    <i class="fas icon-circle fa-info-circle"></i>
+                                    <span class="font-weight-bold">Liczba przepisów: ${allRecipes}</span>
+                                </div>
+                                <div class="alert-item alert-light">
+                                    <i class="far icon-calendar fa-calendar-alt"></i>
+                                    <span class="font-weight-bold">Liczba planów: ${allPlans}</span>
+                                </div>
+                                <div class="alert-item alert-light">
+                                    <i class="fas fa-user-alt"></i>
+                                    <span class="font-weight-bold">Liczba użytkowników: ${allUsers}</span>
+                                </div>
+                            </div>
+                            </div>
+                            <br>
+                            <br>
+                            <div class="onas">
+                            <div class="col-13 text-left"><h5>Kuba Wasilewski <a href="https://github.com/k-wasilewski">@k-wasilewski</a> <a class="nav-link color-header" href="mailto:k.k.wasilewski@gmail.com">
                                 k.k.wasilewski@gmail.com</a></h5></div>
-                            <div class="col-10 text-left"><h5>Kuba Wziątka - <a class="nav-link color-header" href="mailto:kuba.wziatka@gmail.com">
+                            <div class="col-13 text-left"><h5>Kuba Wziątka <a href="https://github.com/Firestart3rr">@Firestart3rr</a> <a class="nav-link color-header" href="mailto:kuba.wziatka@gmail.com">
                                 kuba.wziatka@gmail.com</a></h5></div>
-                            <div class="col-10 text-left"><h5>Aleksander Machaj - <a class="nav-link color-header" href="mailto:aleksander.machaj@gmail.com">
+                            <div class="col-13 text-left"><h5>Aleksander Machaj <a href="https://github.com/alemach">@alemach</a> <a class="nav-link color-header" href="mailto:aleksander.machaj@gmail.com">
                                 aleksander.machaj@gmail.com</a></h5></div>
-                            <div class="col-10 text-left"><h5>Oskar Burdyna - <a class="nav-link color-header" href="mailto:mazaraudio@gmail.com">
+                            <div class="col-13 text-left"><h5>Oskar Burdyna <a href="https://github.com/BACONDISPENSER">@BACONDISPENSER</a> <a class="nav-link color-header" href="mailto:mazaraudio@gmail.com">
                                 mazaraudio@gmail.com</a></h5></div>
+                            </div>
                         </div>
                     </div>
                 </div>

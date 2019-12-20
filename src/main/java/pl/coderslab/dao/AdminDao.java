@@ -1,6 +1,7 @@
 package pl.coderslab.dao;
 
 import pl.coderslab.model.Admin;
+import pl.coderslab.model.Recipe;
 import pl.coderslab.model.SuperAdmin;
 import pl.coderslab.utils.DbUtil;
 
@@ -8,6 +9,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class AdminDao {
     private static final String CREATE_ADMIN_QUERY = "INSERT INTO admins (first_name, last_name, email, password, " +
@@ -19,6 +22,7 @@ public class AdminDao {
             "WHERE id = ?;";
     private static final String GET_ALL_EMAILS = "SELECT email FROM admins;";
     private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE  email=?;";
+    private static final String FIND_ALL_ADMINS_QUERY = "SELECT * FROM admins;";
 
     public boolean doesExist(String email) {
         try (Connection connection = DbUtil.getConnection()) {
@@ -65,7 +69,7 @@ public class AdminDao {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Nie znaleziono bazy");
-        }
+        }am/PanelAdministratora
     }
 
     public Admin get(int id) {
@@ -100,6 +104,7 @@ public class AdminDao {
             preparedStatement.setString(3, admin.getEmail());
             preparedStatement.setString(4, admin.getPassword());
             preparedStatement.setInt(5, id);
+          am/PanelAdministratora
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -130,4 +135,26 @@ public class AdminDao {
         }
         return null;
     }
+
+    public List<Admin> findAllNotComplete() {
+        List<Admin> adminList = new ArrayList<>();
+        try (Connection connection = DbUtil.getConnection();
+             PreparedStatement statement = connection.prepareStatement(FIND_ALL_ADMINS_QUERY);
+             ResultSet resultSet = statement.executeQuery()) {
+
+            while (resultSet.next()) {
+                Admin admin = new Admin();
+                adminList.add(admin);
+            }
+            return adminList;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+
+    }
 }
+
+}
+
