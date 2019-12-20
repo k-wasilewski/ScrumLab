@@ -1,10 +1,3 @@
-<%--
-  Created by IntelliJ IDEA.
-  User: woobofett
-  Date: 17.12.2019
-  Time: 11:20
-  To change this template use File | Settings | File Templates.
---%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -20,50 +13,21 @@
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
-<%@ include file="header.jsp" %>
-<section class="padding-large bg-light">
-    <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
-        <div class="carousel-inner container">
-            <div class="carousel-item active">
-                <div class="container w-75 d-flex">
-                    <div class="carousel-caption d-block">
-                        <h1>Ostatnio dodany przepis</h1>
-                        <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container w-75 d-flex">
-                    <div class="carousel-caption d-block">
-                        <h1>Ostatnio dodany przepis</h1>
-                        <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
-                    </div>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <div class="container w-75 d-flex">
-                    <div class="carousel-caption d-block">
-                        <h1>Ostatnio dodany przepis</h1>
-                        <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+<%@ include file="headerForLoggedUser.jsp" %>
+
+<section class="dashboard-section">
+    <div class="row dashboard-nowrap">
+        <%@ include file="menu.jsp" %>
+        <h1>Ostatnio dodany przepis</h1>
+        <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
     </div>
 </section>
-
-<%@ include file="search-recipe-by-name.jsp" %>
+<div class="search">
+    <%@ include file="search-recipe-by-name.jsp" %>
+</div>
 
 <section class="padding-small details bg-light">
-    <div class="container">
+    <div class="container" style="clear: both;">
         <div class="row">
             <div class="col text-center">
                 <i class="fas fa-check icon-details"></i>
@@ -86,7 +50,8 @@
         </div>
     </div>
 </section>
-
+    </div>
+</section>
 <%@ include file="footer.jsp" %>
 
 

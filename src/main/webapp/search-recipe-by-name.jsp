@@ -1,11 +1,4 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%--
-  Created by IntelliJ IDEA.
-  User: woobofett
-  Date: 17.12.2019
-  Time: 11:20
-  To change this template use File | Settings | File Templates.
---%>
+<%@ taglib prefix="d" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -47,7 +40,7 @@
 
 <section class="padding-medium story bg-light" id="about">
     <div class="container d-flex justify-content-center align-items-center">
-        <c:if test="${not empty recipes}">
+        <d:if test="${not empty recipes}">
             <table class="table border-bottom schedules-content">
                 <thead>
                 <tr class="d-flex text-color-darker">
@@ -58,7 +51,7 @@
                 </tr>
                 </thead>
                 <tbody class="text-color-lighter">
-                <c:forEach items="${recipes}" var="recipe">
+                <d:forEach items="${recipes}" var="recipe">
                     <tr class="d-flex">
                         <th scope="row" class="col-1">${recipe.id}</th>
                         <td class="col-2">${recipe.name}</td>
@@ -67,10 +60,10 @@
                             <a href="/recipe/details?id=${recipe.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
                         </td>
                     </tr>
-                </c:forEach>
+                </d:forEach>
                 </tbody>
             </table>
-        </c:if>
+        </d:if>
     </div>
     </div>
 </section>
