@@ -15,14 +15,16 @@ import java.io.IOException;
 import java.util.List;
 @WebServlet("/app/recipe/plan/add")
 public class AddRecipeToPlan extends HttpServlet {
-    PlanDao planDao = new PlanDao();
-    RecipeDao recipeDao = new RecipeDao();
-    DayNameDao dayNameDao = new DayNameDao();
-    RecipePlanDao recipePlanDao = new RecipePlanDao();
-    List<Plan> plans = planDao.findAll();
-    List<Recipe> recipes = recipeDao.findAll();
-    List<DayName> daynames = dayNameDao.findAll();
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PlanDao planDao = new PlanDao();
+        RecipeDao recipeDao = new RecipeDao();
+        DayNameDao dayNameDao = new DayNameDao();
+        RecipePlanDao recipePlanDao = new RecipePlanDao();
+        List<Plan> plans = planDao.findAll();
+        List<Recipe> recipes = recipeDao.findAll();
+        List<DayName> daynames = dayNameDao.findAll();
+
         request.setCharacterEncoding("UTF-8");
         String planName = request.getParameter("planName");
         String mealName = request.getParameter("mealName");
@@ -36,6 +38,14 @@ public class AddRecipeToPlan extends HttpServlet {
         response.sendRedirect("/app/dashboard");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PlanDao planDao = new PlanDao();
+        RecipeDao recipeDao = new RecipeDao();
+        DayNameDao dayNameDao = new DayNameDao();
+        RecipePlanDao recipePlanDao = new RecipePlanDao();
+        List<Plan> plans = planDao.findAll();
+        List<Recipe> recipes = recipeDao.findAll();
+        List<DayName> daynames = dayNameDao.findAll();
+
         String planName = request.getParameter("planName");
         request.setAttribute("plans", plans);
         request.setAttribute("recipes", recipes);
