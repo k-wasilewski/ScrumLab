@@ -37,7 +37,7 @@
                             <label for="choosePlan" class="col-sm-2 label-size col-form-label">
                                 Wybierz plan
                             </label>
-                            <c:if test="${planName==plan.name}">selected="selected"</c:if>
+                            <c:if test="${planName==plan.name}"></c:if>
                             <div class="col-sm-3">
                                 <select class="form-control" id="choosePlan" name="planName">
                                     <c:forEach items="${plans}" var="plan">
