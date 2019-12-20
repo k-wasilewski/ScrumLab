@@ -20,7 +20,7 @@ public class AppAdminEditUsers extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         SuperAdminDao superAdminDao = new SuperAdminDao();
-        List<Admin> admins = superAdminDao.findAll();
+        List<Admin> admins = superAdminDao.findAllNonSuperAdmins();
         request.setAttribute("admins", admins);
         getServletContext().getRequestDispatcher("/app-admin-edit-users.jsp").forward(request, response);
 

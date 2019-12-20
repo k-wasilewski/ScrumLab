@@ -4,10 +4,10 @@ public class SuperAdmin extends Admin {
 
 
     public static void setEnable(Admin admin, byte enable) {
-            admin.enable = enable;
+        admin.enable = enable;
     }
 
     public static void setSuperAdmin(Admin admin, byte superAdmin) {
-            admin.superadmin = superAdmin;
+        admin.superadmin = superAdmin;
     }
 }
