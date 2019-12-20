@@ -22,7 +22,6 @@
 </head>
 <body>
 
-
 <section class="newsletter-section padding-small">
     <div class="container">
         <div class="row">
