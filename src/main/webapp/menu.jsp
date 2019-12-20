@@ -31,20 +31,20 @@
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link" href="">    <!-- userdata edit link -->
+        <a class="nav-link" href="/app/user/editdetails">
             <span>Edytuj dane</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <li class="nav-item">
-        <a class="nav-link disabled" href="">   <!-- password edit link -->
+        <a class="nav-link disabled" href="/app/user/editpassword">
             <span>Zmień hasło</span>
             <i class="fas fa-angle-right"></i>
         </a>
     </li>
     <c:if test="${sessionScope.admin.superadmin==1}">
         <li class="nav-item">
-            <a class="nav-link" href="">    <!-- users list link -->
+            <a class="nav-link" href="/app/admin/editusers">
                 <span>Użytkownicy</span>
                 <i class="fas fa-angle-right"></i>
             </a>

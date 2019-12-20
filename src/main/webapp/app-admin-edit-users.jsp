@@ -78,22 +78,6 @@
                                 </td>
                             </tr>
                         </c:forEach>
-                        <tr class="d-flex">
-                            <td class="col-1">2</td>
-                            <td class="col-3">Marek</td>
-                            <td class="col-6">Marecki</td>
-                            <td class="col-2 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Blokuj</a>
-                            </td>
-                        </tr>
-                        <tr class="d-flex">
-                            <td class="col-1">3</td>
-                            <td class="col-3">Marek</td>
-                            <td class="col-6">Marecki</td>
-                            <td class="col-2 center">
-                                <a href="#" class="btn btn-danger rounded-0 text-light m-1">Blokuj</a>
-                            </td>
-                        </tr>
                         </tbody>
                     </table>
 
