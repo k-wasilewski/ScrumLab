@@ -33,7 +33,7 @@ public class AddRecipeToPlan extends HttpServlet {
         int recipeId = recipeDao.getRecipeIdByName(recipeName);
         int dayId = dayNameDao.getDayIdByName(dayName);
         recipePlanDao.addRecipeToPlan(recipeId, mealName, displayOrder, dayId, planId);
-        response.sendRedirect("/dashboard");
+        response.sendRedirect("/app/dashboard");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("plans", plans);
