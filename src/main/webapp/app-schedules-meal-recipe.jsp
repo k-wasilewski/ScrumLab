@@ -32,15 +32,16 @@
                     </div>
                 </div>
                 <div class="schedules-content">
-                    <form method="post" action="/app/recipe/plan/add" id="addRecipeToPlan">
+                    <form method="post" action="/app/recipe/plan/add" id="addRecipeToPlan" >
                         <div class="form-group row">
                             <label for="choosePlan" class="col-sm-2 label-size col-form-label">
                                 Wybierz plan
                             </label>
+                            <c:if test="${planName==plan.name}">selected="selected"</c:if>
                             <div class="col-sm-3">
                                 <select class="form-control" id="choosePlan" name="planName">
                                     <c:forEach items="${plans}" var="plan">
-                                        <option selected = "${planName}" value="${plan.name}">${plan.name}</option>
+                                        <option <c:if test="${planName==plan.name}">selected="selected"</c:if> value="${plan.name}">${plan.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
@@ -68,7 +69,7 @@
                             <div class="col-sm-4">
                                 <select class="form-control" id="recipie" name="recipeName">
                                     <c:forEach items="${recipes}" var="recipe">
-                                        <option value="${recipe.name}">${recipe.name}</option>
+                                        <option  value="${recipe.name}">${recipe.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
