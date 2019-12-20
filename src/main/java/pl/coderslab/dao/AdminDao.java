@@ -69,7 +69,7 @@ public class AdminDao {
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("Nie znaleziono bazy");
-        }
+        }am/PanelAdministratora
     }
 
     public Admin get(int id) {
@@ -104,7 +104,7 @@ public class AdminDao {
             preparedStatement.setString(3, admin.getEmail());
             preparedStatement.setString(4, admin.getPassword());
             preparedStatement.setInt(5, id);
-
+          am/PanelAdministratora
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

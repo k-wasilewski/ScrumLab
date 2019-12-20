@@ -14,7 +14,7 @@ import java.util.List;
 public class SuperAdminDao extends AdminDao {
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?, " +
-            "superadmin=?, enable=?;";
+            "superadmin=?, enable=? WHERE id = ?;";
     private static final String FIND_ALL_SUPERADMINS_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE superadmin = 1;";
 
     public List<Admin> findAllSuperAdmins() {
@@ -48,7 +48,7 @@ public class SuperAdminDao extends AdminDao {
             List<Admin> admins = new LinkedList<>();
             while (resultSet.next()) {
                 Admin admin = new Admin();
-                admin.setId(resultSet.getInt(1));
+                admin.setId(resultSet.getInt("id"));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
@@ -75,6 +75,7 @@ public class SuperAdminDao extends AdminDao {
             preparedStatement.setString(4, admin.getPassword());
             preparedStatement.setInt(5, admin.getSuperadmin());
             preparedStatement.setInt(6, admin.getEnable());
+            preparedStatement.setInt(7, id);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
