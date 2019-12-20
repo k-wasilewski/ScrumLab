@@ -15,7 +15,8 @@ public class AdminDao {
     private static final String DELETE_ADMIN_QUERY = "DELETE FROM admins where id=?;";
     private static final String GET_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, " +
             "enable FROM admins WHERE  id=?;";
-    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?;";
+    private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=? " +
+            "WHERE id = ?;";
     private static final String GET_ALL_EMAILS = "SELECT email FROM admins;";
     private static final String CHECK_IF_ADMIN_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE  email=?;";
 
@@ -74,21 +75,15 @@ public class AdminDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             Admin admin = new Admin();
             if (resultSet.next()) {
-                SuperAdmin superAdmin = new SuperAdmin();
                 admin.setId(resultSet.getInt(1));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                superAdmin.setEnable(admin, resultSet.getByte("enable"));
-                if (resultSet.getByte("superadmin") == 1) {
-                    return superAdmin.setSuperAdmin(admin, (byte) 1);
-                }
-                if (resultSet.getByte("superadmin") == 0) {
-                    superAdmin.setSuperAdmin(admin, (byte) 0);
-                    return admin;
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
+                return admin;
 
-                }
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -104,6 +99,8 @@ public class AdminDao {
             preparedStatement.setString(2, admin.getLastName());
             preparedStatement.setString(3, admin.getEmail());
             preparedStatement.setString(4, admin.getPassword());
+            preparedStatement.setInt(5, id);
+
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -124,15 +121,9 @@ public class AdminDao {
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                superAdmin.setEnable(admin, resultSet.getByte("enable"));
-                if (resultSet.getByte("superadmin") == 1) {
-                    return superAdmin.setSuperAdmin(admin, (byte) 1);
-                }
-                if (resultSet.getByte("superadmin") == 0) {
-                    superAdmin.setSuperAdmin(admin, (byte) 0);
-                    return admin;
-
-                }
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
+                return admin;
             }
         } catch (SQLException e) {
             e.printStackTrace();

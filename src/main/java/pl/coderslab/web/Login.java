@@ -21,7 +21,7 @@ public class Login extends HttpServlet {
             if (admin.comparePassword(request.getParameter("password"))) {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin);
-                response.sendRedirect("/dashboard");
+                response.sendRedirect("/app/dashboard");
             } else {
                 request.setAttribute("loginError", "Niewłaściwe dane logowania.");
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
