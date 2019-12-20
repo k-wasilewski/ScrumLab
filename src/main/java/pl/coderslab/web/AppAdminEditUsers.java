@@ -2,6 +2,7 @@ package pl.coderslab.web;
 
 import pl.coderslab.dao.SuperAdminDao;
 import pl.coderslab.model.Admin;
+import pl.coderslab.model.SuperAdmin;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,16 +12,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/contact")
-public class ContactServlet extends HttpServlet {
+@WebServlet("/app/admin/editusers")
+public class AppAdminEditUsers extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SuperAdminDao sadao = new SuperAdminDao();
-        List<Admin> superadmins = sadao.findAllSuperAdmins();
-        request.setAttribute("superadmins", superadmins);
-        getServletContext().getRequestDispatcher("/contact.jsp").forward(request, response);
+        SuperAdminDao superAdminDao = new SuperAdminDao();
+        List<Admin> admins = superAdminDao.findAll();
+        request.setAttribute("admins", admins);
+        getServletContext().getRequestDispatcher("/app-admin-edit-users.jsp").forward(request, response);
+
     }
 }

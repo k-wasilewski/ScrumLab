@@ -18,10 +18,14 @@ public class Login extends HttpServlet {
         AdminDao adminDao = new AdminDao();
         Admin admin = adminDao.get(email);
         if (admin != null) {
-            if (admin.comparePassword(request.getParameter("password"))) {
+            if (0 == admin.getEnable()) {
+                request.setAttribute("loginError", "Administrator zablokował dostęp do Twojego konta.<br>" +
+                        " Jeżeli masz jakieś pytania: <a href=\"/contact\">kontakt</a>");
+                getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
+            } else if (admin.comparePassword(request.getParameter("password"))) {
                 HttpSession session = request.getSession();
                 session.setAttribute("admin", admin);
-                response.sendRedirect("/dashboard");
+                response.sendRedirect("/app/dashboard");
             } else {
                 request.setAttribute("loginError", "Niewłaściwe dane logowania.");
                 getServletContext().getRequestDispatcher("/login.jsp").forward(request, response);
