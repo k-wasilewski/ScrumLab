@@ -18,9 +18,9 @@ public class ContactServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        SuperAdminDao sadao = new SuperAdminDao();
+        /* SuperAdminDao sadao = new SuperAdminDao();
         List<Admin> superadmins = sadao.findAllSuperadmins();
-        request.setAttribute("superadmins", superadmins);
+        request.setAttribute("superadmins", superadmins); */
         getServletContext().getRequestDispatcher("/contact.jsp").forward(request, response);
     }
 }
