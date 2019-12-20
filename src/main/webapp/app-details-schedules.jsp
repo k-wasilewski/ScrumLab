@@ -21,17 +21,7 @@
           integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">Imię</h4>
-            <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-        </div>
-    </nav>
-</header>
+<%@ include file="headerForLoggedUser.jsp" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
@@ -89,16 +79,9 @@
                                     <td class="col-1 center">
 
                                             <%--                                        popup javascript --%>
-
-
-                                        <form action="/app/plan/delrecipe" method="get"
-                                              onsubmit="return confirm('Czy na pewno chcesz usunąć?')">
-                                                <%--wystarczy onsubmit--%>
-                                            <input name="planId" value="${planId}" type="hidden">
-                                            <button onclick="myFunction()" value="${values[1]}" name="recipeName"
-                                                    class="btn btn-danger rounded-0 text-light m-1">Usuń
-                                            </button>
-                                        </form>
+                                        <a onclick="return confirm('Czy na pewno chcesz usunąć?')"
+                                           href="/app/plan/delrecipe?planId=${planId}&recipeName=${values[1]}"
+                                           class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
 
 
                                     </td>

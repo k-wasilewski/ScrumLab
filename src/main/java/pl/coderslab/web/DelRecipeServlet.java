@@ -9,9 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.io.PrintWriter;
 
-@WebServlet("/delrecipe")
+@WebServlet("/app/delrecipe")
 public class DelRecipeServlet extends HttpServlet {
     private int recipeId;
 
@@ -20,17 +19,20 @@ public class DelRecipeServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        if (request.getParameter("id")!=null) recipeId = Integer.parseInt(request.getParameter("id"));
+        if (request.getParameter("id") != null) {
+            recipeId = Integer.parseInt(request.getParameter("id"));
+        }
 
-        if (request.getParameter("del")!=null && request.getParameter("del").equals("true")) {
-            RecipePlanDao rpdao = new RecipePlanDao();
-            if (recipeId!=0 && rpdao.findAllByRecipe(recipeId).isEmpty()) {
-                RecipeDao rdao = new RecipeDao();
-                rdao.delete(recipeId);
-                getServletContext().getRequestDispatcher("/app/recipe/list/?msg=true").forward(request, response);
-            } else {
-                getServletContext().getRequestDispatcher("/app/recipe/list/?failed=true").forward(request, response);
-            }
-        } else getServletContext().getRequestDispatcher("/recipe-delete-confirmation-popup.jsp").forward(request, response);
+        RecipePlanDao rpdao = new RecipePlanDao();
+        if (recipeId != 0 && rpdao.findAllByRecipe(recipeId).isEmpty()) {
+            RecipeDao rdao = new RecipeDao();
+            rdao.delete(recipeId);
+            response.sendRedirect("/app/recipe/list?msg=true");
+            System.out.println("msg=true");
+        } else {
+            request.setAttribute("failed", "true");
+            response.sendRedirect("/app/recipe/list?failed=true");
+
+        }
     }
 }

@@ -29,12 +29,12 @@
             <div class="carousel-item active">
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
-                        <div class="col-10 text-left"><h4> Lorem ipsum dolor sit amet,
-                            consectetur adipiscing elit. Donec libero lorem, consectetur sed arcu non,
-                            pretium imperdiet diam. Sed ultricies sagittis mi, at ultricies mi iaculis sed.
-                            Morbi luctus elit et commodo ornare. Curabitur eu urna a sem lobortis porta.
-                            Maecenas gravida augue vitae bibendum interdum. </h4></div>
-                        <div class="col-4 text-left"><h4><a href="mailto:loremipsum@loremipsum.com">loremipsum@loremipsum.com</a></h4></div>
+                        <c:forEach items="${superadmins}" var="superadmin">
+                        <div class="col-10 text-left">
+                            <h4> ${superadmin.firstName} ${superadmin.lastName} </h4>
+                            </div>
+                        <div class="col-4 text-left"><h4><a href="mailto:${superadmin.email}">${superadmin.email}</a></h4></div>
+                        </c:forEach>
                     </div>
                 </div>
             </div>

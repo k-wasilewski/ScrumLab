@@ -15,7 +15,31 @@ public class SuperAdminDao extends AdminDao {
     private static final String FIND_ALL_ADMINS_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins;";
     private static final String UPDATE_ADMIN_QUERY = "UPDATE admins SET first_name=?,last_name=?,email=?,password=?, " +
             "superadmin=?, enable=?;";
+    private static final String FIND_ALL_SUPERADMINS_QUERY = "SELECT id, first_name, last_name, email, password, superadmin, enable FROM admins WHERE superadmin = 1;";
 
+    public List<Admin> findAllSuperAdmins() {
+        try (Connection connection = DbUtil.getConnection()) {
+            PreparedStatement preparedStatement = connection.prepareStatement(FIND_ALL_SUPERADMINS_QUERY);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            List<Admin> admins = new LinkedList<>();
+            while (resultSet.next()) {
+                Admin admin = new Admin();
+                admin.setId(resultSet.getInt(1));
+                admin.setFirstName(resultSet.getString("first_name"));
+                admin.setLastName(resultSet.getString("last_name"));
+                admin.setEmail(resultSet.getString("email"));
+                admin.setPassword(resultSet.getString("password"));
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
+                admins.add(admin);
+            }
+            return admins;
+        } catch (SQLException e) {
+            e.printStackTrace();
+            System.out.println("Nie znaleziono bazy");
+        }
+        return null;
+    }
 
     public List<Admin> findAll() {
         try (Connection connection = DbUtil.getConnection()) {
@@ -24,14 +48,13 @@ public class SuperAdminDao extends AdminDao {
             List<Admin> admins = new LinkedList<>();
             while (resultSet.next()) {
                 Admin admin = new Admin();
-                SuperAdmin superAdmin = new SuperAdmin();
                 admin.setId(resultSet.getInt(1));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
                 admin.setPassword(resultSet.getString("password"));
-                superAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
-                superAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setEnable(admin, resultSet.getByte("enable"));
+                SuperAdmin.setSuperAdmin(admin, resultSet.getByte("superadmin"));
                 admins.add(admin);
             }
             return admins;

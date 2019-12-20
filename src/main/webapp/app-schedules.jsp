@@ -4,7 +4,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -16,24 +15,13 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
-
 <body>
-<header class="page-header">
-    <nav class="navbar navbar-expand-lg justify-content-between">
-        <a href="/" class="navbar-brand main-logo main-logo-smaller">
-            Zaplanuj <span>Jedzonko</span>
-        </a>
-        <div class="d-flex justify-content-around">
-            <h4 class="text-light mr-3">Imię</h4>
-            <div class="circle-div text-center"><i class="fas fa-user icon-user"></i></div>
-        </div>
-    </nav>
-</header>
+
+<%@ include file="headerForLoggedUser.jsp" %>
 
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
         <%@ include file="menu.jsp" %>
-
         <div class="m-4 p-3 width-medium">
             <div class="dashboard-content border-dashed p-3 m-4 view-height">
                 <div class="row border-bottom border-3 p-1 m-1">
@@ -44,14 +32,12 @@
                         <a href="/app/plan/add" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Dodaj plan</a>
                     </div>
                 </div>
-
-
                 <div class="schedules-content">
                     <% List<Plan> planList = (List<Plan>) request.getAttribute("planList"); %>
                     <%--                <% List<List<Recipe>> listOfListsOfRecipes = (List<List<Recipe>>) request.getAttribute("listOfRecipesByDay"); %>--%>
-                    <% int i=1; %>
+                    <% int i = 1; %>
                     <c:forEach items="${planList}" var="plan">
-                        <% Plan plan=(Plan)session.getAttribute("plan");
+                        <% Plan plan = (Plan) session.getAttribute("plan");
                             session.setAttribute("plan", plan);
                             session.setAttribute("i", i);%>
                         <table class="table border-bottom">
@@ -71,14 +57,14 @@
                                         ${plan.description}
                                 </td>
                                 <td class="col-2 d-flex align-items-center justify-content-center flex-wrap">
-                                    <a href="#" onclick='javascript:window.open("/delplan?id=${plan.id}", "winname",
-                                            "directories=no,titlebar=no,toolbar=no,location=no,status=no,menubar=no,scrollbars=no," +
-                                            "resizable=no,width=360,height=130");'
+                                    <a onclick="return confirm('Czy na pewno chcesz usunąć?')"
+                                       href="/app/delplan?id=${plan.id}"
                                        class="btn btn-danger rounded-0 text-light m-1">Usuń</a>
-                                    <a href="/app/plan/details?id=${plan.id}" class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
-                                    <a href="/app/plan/edit?id=${plan.id}"
-                                       class="btn btn-warning rounded-0 text-light m-1">Edytuj
-                                    </a>
+                                    <a href="/app/plan/details?id=${plan.id}"
+                                       class="btn btn-info rounded-0 text-light m-1">Szczegóły</a>
+                                    <form action="/app/plan/edit" method="post">
+                                        <button type="submit" name="planId" value="${plan.id}" class="btn btn-warning rounded-0 text-light m-1">Edytuj</button>
+                                    </form>
                                 </td>
                             </tr>
                             </tbody>
@@ -86,13 +72,10 @@
                         <% i++; %>
                     </c:forEach>
                 </div>
-
             </div>
         </div>
     </div>
 </section>
-
-
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
