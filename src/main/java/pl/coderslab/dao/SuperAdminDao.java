@@ -48,7 +48,7 @@ public class SuperAdminDao extends AdminDao {
             List<Admin> admins = new LinkedList<>();
             while (resultSet.next()) {
                 Admin admin = new Admin();
-                admin.setId(resultSet.getInt(1));
+                admin.setId(resultSet.getInt("id"));
                 admin.setFirstName(resultSet.getString("first_name"));
                 admin.setLastName(resultSet.getString("last_name"));
                 admin.setEmail(resultSet.getString("email"));
