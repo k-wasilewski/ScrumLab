@@ -39,6 +39,12 @@
                         <table class="table borderless">
                             <tbody>
                             <tr class="d-flex">
+                                <th scope="row" class="col-2"><h4>Stare hasło</h4></th>
+                                <td class="col-7">
+                                    <input type="password" name = "oldpassword" class="w-100 p-1" value="">
+                                </td>
+                            </tr>
+                            <tr class="d-flex">
                                 <th scope="row" class="col-2"><h4>Nowe hasło</h4></th>
                                 <td class="col-7">
                                     <input type="password" name = "password" class="w-100 p-1" value="">

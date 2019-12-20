@@ -1,5 +1,6 @@
 package pl.coderslab.web;
 
+import org.mindrot.jbcrypt.BCrypt;
 import pl.coderslab.dao.AdminDao;
 import pl.coderslab.model.Admin;
 
@@ -17,9 +18,15 @@ public class AppUserEditPassword extends HttpServlet {
 
         String password = request.getParameter("password");
         String repassword = request.getParameter("repassword");
+        String oldpassword = request.getParameter("oldpassword");
         HttpSession session = request.getSession();
         Admin newAdmin = (Admin) session.getAttribute("admin");
         AdminDao adminDao = new AdminDao();
+        while (!newAdmin.comparePassword(oldpassword)) {
+            request.setAttribute("errorPwd", "Podane hasła muszą się zgadzać");
+            getServletContext().getRequestDispatcher("/app-user-edit-password.jsp").forward(request, response);
+
+        }
         while (!newAdmin.setNewPassword(password)) {
             request.setAttribute("errorPwd", "Hasło musi składać się z minimum 8 znaków, w tym jedenj wielkiej " +
                     "litery, jednej małej litery i jednej cyfry.");
