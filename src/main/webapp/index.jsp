@@ -27,7 +27,7 @@
             <div class="carousel-item active">
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
-                        <h1>Ostatnio dodany przepis</h1>
+                        <h1>Ostatnio dodany przepis</h1><br><br>
                         <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
             <div class="carousel-item">
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
-                        <h1>Ostatnio dodany przepis</h1>
+                        <h1>Ostatnio dodany przepis</h1><br><br>
                         <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
                     </div>
                 </div>
@@ -43,7 +43,7 @@
             <div class="carousel-item">
                 <div class="container w-75 d-flex">
                     <div class="carousel-caption d-block">
-                        <h1>Ostatnio dodany przepis</h1>
+                        <h1>Ostatnio dodany przepis</h1><br><br>
                         <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
                     </div>
                 </div>

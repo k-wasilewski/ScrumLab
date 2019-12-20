@@ -18,8 +18,18 @@
 <section class="dashboard-section">
     <div class="row dashboard-nowrap">
         <%@ include file="menu.jsp" %>
-        <h1>Ostatnio dodany przepis</h1>
-        <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
+            <div id="carouselExampleControls" class="carousel slide main-slider" data-ride="carousel">
+                <div class="carousel-inner container">
+                    <div class="carousel-item active">
+                        <div class="container w-100 d-flex">
+                            <div class="carousel-caption d-block">
+                                <h1>Ostatnio dodany przepis:</h1><br><br>
+                                <h3>${lastRecipe.name}<br>${lastRecipe.description}</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
     </div>
 </section>
 <div class="search">
