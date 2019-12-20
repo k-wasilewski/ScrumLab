@@ -22,14 +22,16 @@ public class AccessAdminFilter implements Filter {
     public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain) throws ServletException, IOException {
         HttpServletRequest request = (HttpServletRequest) req;
         HttpSession session = request.getSession();
-        Admin admin = (Admin) session.getAttribute("admin");
-        if (admin.getSuperadmin() == 0) {
-            ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/app/dashboard");
-            return;
+        if (session.getAttribute("admin")!=null) {
+            Admin admin = (Admin) session.getAttribute("admin");
+            if (admin.getSuperadmin() == 0) {
+                ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/app/dashboard");
+                return;
 
-        } else {
-            chain.doFilter(req, resp);
-        }
+            } else {
+                chain.doFilter(req, resp);
+            }
+        } else ((HttpServletResponse) resp).sendRedirect(request.getContextPath() + "/");
     }
 
 
