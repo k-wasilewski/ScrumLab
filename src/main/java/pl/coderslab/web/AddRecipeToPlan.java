@@ -36,9 +36,11 @@ public class AddRecipeToPlan extends HttpServlet {
         response.sendRedirect("/app/dashboard");
     }
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        String planName = request.getParameter("planName");
         request.setAttribute("plans", plans);
         request.setAttribute("recipes", recipes);
         request.setAttribute("daynames", daynames);
+        request.setAttribute("planName", planName);
         getServletContext().getRequestDispatcher("/app-schedules-meal-recipe.jsp").forward(request, response);
     }
 }

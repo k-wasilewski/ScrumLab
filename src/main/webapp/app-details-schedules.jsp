@@ -33,7 +33,15 @@
                     <div class="col noPadding">
                         <h3 class="color-header text-uppercase">SZCZEGÓŁY PLANU</h3>
                     </div>
+
                     <div class="col d-flex justify-content-end mb-2 noPadding">
+                        <a href="/app/recipe/plan/add?planName=${planName}"
+                           class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">
+                            Dodaj przepis
+                        </a>
+                        &nbsp;
+                        &nbsp;
+                        &nbsp;
                         <a href="#" onclick="goBack()" class="btn btn-color rounded-0 pt-0 pb-0 pr-4 pl-4">Powrót</a>
                         <script>
                             function goBack() {
@@ -62,6 +70,7 @@
                                     ${planDescription}
                                 </p>
                             </div>
+
                         </div>
                     </div>
 

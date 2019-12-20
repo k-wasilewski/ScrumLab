@@ -40,7 +40,7 @@
                             <div class="col-sm-3">
                                 <select class="form-control" id="choosePlan" name="planName">
                                     <c:forEach items="${plans}" var="plan">
-                                        <option value="${plan.name}">${plan.name}</option>
+                                        <option selected = "${planName}" value="${plan.name}">${plan.name}</option>
                                     </c:forEach>
                                 </select>
                             </div>
